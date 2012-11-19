@@ -1,0 +1,44 @@
+! urxvt options
+URxvt*transparent: true
+URxvt*scrollBar: false
+URxvt*borderLess: true
+
+! foreground, background, and fonts
+URxvt*foreground: #BEBEBE
+URxvt*background: #0C0D0E
+URxvt*font: -*-terminus-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+URxvt*boldFont: -*-terminus-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
+
+! black
+URxvt*color0: #2E3436
+URxvt*color8: #555753
+! red
+URxvt*color1: #CC0000
+URxvt*color9: #EF2929
+! green
+URxvt*color2: #4E9A06
+URxvt*color10: #8AE234
+! orange/yellow
+URxvt*color3: #DF8500
+URxvt*color11: #FCE94F
+! blue
+URxvt*color4: RoyalBlue
+URxvt*color12: RoyalBlue
+! magenta
+URxvt*color5: #AA00AA
+URxvt*color13: #EE00EE
+! cyan
+URxvt*color6: #06989A
+URxvt*color14: #34E2E2
+! white
+URxvt*color7: #D3D7CF
+URxvt*color15: #EEEEEC
+
+! use tabbed browsing and clickable urls
+URxvt*perl-ext-common: default,matcher,tabbedex
+URxvt*urlLauncher: /usr/bin/conkeror
+URxvt*matcher.button: 1
+URxvt*colorUL: #86a2be
+
+! keymap options
+URxvt*keysym.Mod4-c: super
