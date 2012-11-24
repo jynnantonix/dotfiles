@@ -9,6 +9,9 @@
 command fortune | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
 
 # modified commands
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias ls='ls -hF --color=auto'
 alias la='ls -a'
 alias ll='ls -l'
