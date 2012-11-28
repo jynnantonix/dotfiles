@@ -1,3 +1,6 @@
+;; Add the local elisp subdirectory for my files
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+
 ;; Set the hyper modifier
 (define-key key-translation-map [8711] 'event-apply-hyper-modifier)
 
@@ -16,19 +19,14 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
-;; turn off tab insertion in favor of space insertion
-;; and set the default tab width to 4
-(setq-default indent-tabs-mode nil
-              c-default-style "bsd"
-              c-basic-offset 4
-              tab-width 4)
-
 ;; turn on column numbers
 (column-number-mode t)
 
-;; map newline-and-indent to RET in c mode
+;; use google's code style for C/C++
 (require 'cc-mode)
-(define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
+(require 'google-c-style)
+(add-hook 'c-mode-common-hook 'google-set-c-style)
+(add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
@@ -76,7 +74,7 @@
 
 ;; enable shell-script-mode for AUR pkgbuilds
 (setq auto-mode-alist
-      (cons '("PKGBUILD" . shell-script-mode) auto-mode-alist))
+      (cons '("PKGBUILD\'" . shell-script-mode) auto-mode-alist))
 
 ;; toggle window dedication
 (defun toggle-window-dedicated()
