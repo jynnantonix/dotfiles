@@ -92,7 +92,7 @@
        "Window %s is dedicated"
      "Window %s is not dedicated")
    (current-buffer)))
-(global-set-key (kbd "M-[ p") 'toggle-window-dedicated)
+(global-set-key (kbd "<f9>") 'toggle-window-dedicated)
 
 ;; easy commands for window switching
 (global-set-key (kbd "H-c <left>") 'windmove-left)          ; move to left window
@@ -103,6 +103,10 @@
 (global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
 (global-set-key (kbd "C-c <up>") 'windmove-up)              ; move to upper window
 (global-set-key (kbd "C-c <down>")  'windmove-down)         ; move to lower window
+
+;; set functions keys to some useful commands
+(global-set-key (kbd "<f6>") 'compile)
+(global-set-key (kbd "<f7>") 'gdb)
 
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
