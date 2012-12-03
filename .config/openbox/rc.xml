@@ -270,7 +270,7 @@
       </action>
     </keybind>
     <!-- Keybindings for window switching -->
-    <keybind key="A-Tab">
+    <keybind key="W-Tab">
       <action name="NextWindow">
         <finalactions>
           <action name="Focus"/>
@@ -299,7 +299,14 @@
         </finalactions>
       </action>
     </keybind>
-    <!-- Keybindings for window moving and resizing with the arrow keys -->
+    <!-- Keybindings for window moving and resizing with the arrow
+	 keys -->
+    <keybind key="W-f">
+      <action name="ToggleFullscreen" />
+    </keybind>
+    <keybind key="W-m">
+      <action name="Unmaximize" />
+    </keybind>
     <keybind key="W-Right">
       <action name="MoveRelative">
 	<x>20</x>
