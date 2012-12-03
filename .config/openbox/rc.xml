@@ -299,25 +299,89 @@
         </finalactions>
       </action>
     </keybind>
-    <!-- Keybindings for window switching with the arrow keys -->
+    <!-- Keybindings for window moving and resizing with the arrow keys -->
+    <keybind key="W-Right">
+      <action name="MoveRelative">
+	<x>20</x>
+	<y>0</y>
+      </action>
+    </keybind>
+    <keybind key="W-Down">
+      <action name="MoveRelative">
+	<x>0</x>
+	<y>20</y>
+      </action>
+    </keybind>
+    <keybind key="W-Left">
+      <action name="MoveRelative">
+	<x>-20</x>
+	<y>0</y>
+      </action>
+    </keybind>
+    <keybind key="W-Up">
+      <action name="MoveRelative">
+	<x>0</x>
+	<y>-20</y>
+      </action>
+    </keybind>
+    <keybind key="W-A-Right">
+      <action name="MoveToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-Left">
+      <action name="MoveToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-Up">
+      <action name="MoveToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-A-Down">
+      <action name="MoveToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
     <keybind key="W-S-Right">
-      <action name="DirectionalCycleWindows">
-        <direction>right</direction>
+      <action name="GrowToEdge">
+        <direction>east</direction>
       </action>
     </keybind>
     <keybind key="W-S-Left">
-      <action name="DirectionalCycleWindows">
-        <direction>left</direction>
+      <action name="GrowToEdge">
+        <direction>west</direction>
       </action>
     </keybind>
     <keybind key="W-S-Up">
-      <action name="DirectionalCycleWindows">
-        <direction>up</direction>
+      <action name="GrowToEdge">
+        <direction>north</direction>
       </action>
     </keybind>
     <keybind key="W-S-Down">
-      <action name="DirectionalCycleWindows">
-        <direction>down</direction>
+      <action name="GrowToEdge">
+        <direction>south</direction>
+      </action>
+    </keybind>
+    <keybind key="W-C-Right">
+      <action name="ShrinkToEdge">
+        <direction>east</direction>
+      </action>
+    </keybind>
+    <keybind key="W-C-Left">
+      <action name="ShrinkToEdge">
+        <direction>west</direction>
+      </action>
+    </keybind>
+    <keybind key="W-C-Up">
+      <action name="ShrinkToEdge">
+        <direction>north</direction>
+      </action>
+    </keybind>
+    <keybind key="W-C-Down">
+      <action name="ShrinkToEdge">
+        <direction>south</direction>
       </action>
     </keybind>
     <!-- Keybindings for running applications -->
@@ -773,13 +837,7 @@
         <y>20</y>
       </position>
       <layer>below</layer>
-      <maximized>true</maximized>
-    </application>
-    <!-- Conkeror is always on desktop
-    2 and runs in the background -->
-    <application class="Conkeror">
-      <focus>yes</focus>
-      <layer>below</layer>
+      <desktop>all</desktop>
       <maximized>true</maximized>
     </application>
   </applications>
