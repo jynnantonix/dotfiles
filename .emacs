@@ -51,6 +51,10 @@
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
+;; Use shell-pop for running the shell
+(require 'shell-pop)
+(global-set-key (kbd "<f8>") 'shell-pop)
+
 ;; use auto-fill for latex
 (add-hook 'latex-mode-hook
           (function (lambda ()
