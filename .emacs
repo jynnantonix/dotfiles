@@ -95,10 +95,6 @@
 (global-set-key (kbd "<f9>") 'toggle-window-dedicated)
 
 ;; easy commands for window switching
-(global-set-key (kbd "H-c <left>") 'windmove-left)          ; move to left window
-(global-set-key (kbd "H-c <right>") 'windmove-right)        ; move to right window
-(global-set-key (kbd "H-c <up>") 'windmove-up)              ; move to upper window
-(global-set-key (kbd "H-c <down>")  'windmove-down)         ; move to lower window
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
 (global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
 (global-set-key (kbd "C-c <up>") 'windmove-up)              ; move to upper window
