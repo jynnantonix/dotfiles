@@ -53,7 +53,7 @@
 
 ;; Use shell-pop for running the shell
 (require 'shell-pop)
-(global-set-key (kbd "<f8>") 'shell-pop)
+(global-set-key (kbd "<f6>") 'shell-pop)
 
 ;; use auto-fill for latex
 (add-hook 'latex-mode-hook
@@ -101,8 +101,8 @@
 (global-set-key (kbd "C-c <down>")  'windmove-down)         ; move to lower window
 
 ;; set functions keys to some useful commands
-(global-set-key (kbd "<f6>") 'compile)
-(global-set-key (kbd "<f7>") 'gdb)
+(global-set-key (kbd "<f7>") 'compile)
+(global-set-key (kbd "<f8>") 'gdb)
 
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
