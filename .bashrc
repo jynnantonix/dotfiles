@@ -21,6 +21,7 @@ alias df='df -h'
 alias du='du -c -h -s'
 alias mkdir='mkdir -p -v'
 alias ping='ping -c 5'
+alias xp='xprop | grep "WM_WINDOW_ROLE\|WM_CLASS" && echo "WM_CLASS(STRING) = \"NAME\", \"CLASS\""'
 
 # make the color-theme in emacs the same as 
 # the emacs in tty
