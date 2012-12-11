@@ -39,6 +39,3 @@ URxvt*perl-ext-common: default,matcher,tabbedex
 URxvt*urlLauncher: /usr/bin/conkeror
 URxvt*matcher.button: 1
 URxvt*colorUL: #86a2be
-
-! keymap options
-URxvt*keysym.Mod4-c: super

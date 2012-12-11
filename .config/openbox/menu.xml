@@ -30,45 +30,12 @@
 </menu>
 
 <menu id="apps-editors-menu" label="Editors">
-  <item label="GVim">
-    <action name="Execute">
-      <command>gvim</command>
-      <startupnotify>
-        <enabled>yes</enabled>
-        <wmclass>GVim</wmclass>
-      </startupnotify>
-    </action>
-  </item>
   <item label="Emacs">
     <action name="Execute">
       <command>emacs</command>
       <startupnotify>
         <enabled>yes</enabled>
         <wmclass>Emacs</wmclass>
-      </startupnotify>
-    </action>
-  </item>
-  <item label="GEdit">
-    <action name="Execute">
-      <command>gedit</command>
-      <startupnotify>
-        <enabled>yes</enabled>
-      </startupnotify>
-    </action>
-  </item>
-  <item label="Kate">
-    <action name="Execute">
-      <command>kate</command>
-      <startupnotify>
-        <enabled>yes</enabled>
-      </startupnotify>
-    </action>
-  </item>
-  <item label="Kwrite">
-    <action name="Execute">
-      <command>kwrite</command>
-      <startupnotify>
-        <enabled>yes</enabled>
       </startupnotify>
     </action>
   </item>
@@ -419,6 +386,7 @@
   <separator />
   -->
   <menu id="apps-net-menu"/>
+  <menu id="apps-editors-menu"/>
   <menu id="apps-graphics-menu"/>
   <menu id="apps-term-menu"/>
   <menu id="system-menu"/>
