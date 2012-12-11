@@ -97,6 +97,22 @@
    (current-buffer)))
 (global-set-key (kbd "<f9>") 'toggle-window-dedicated)
 
+;; Pretty-print format xml file
+(defun pretty-print-xml-region (begin end)
+  "Pretty format XML markup in region. You need to have nxml-mode
+http://www.emacswiki.org/cgi-bin/wiki/NxmlMode installed to do
+this.  The function inserts linebreaks to separate tags that have
+nothing but whitespace between them.  It then indents the markup
+by using nxml's indentation rules."
+  (interactive "r")
+  (save-excursion
+      (nxml-mode)
+      (goto-char begin)
+      (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
+        (backward-char) (insert "\n"))
+      (indent-region begin end))
+    (message "Ah, much better!"))
+
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
 (global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
