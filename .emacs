@@ -1,8 +1,11 @@
 ;; Add the local elisp subdirectory for my files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-;; Set the hyper modifier
-(define-key key-translation-map [8711] 'event-apply-hyper-modifier)
+;; Don't allow the startup screen to show
+(setq inhibit-startup-screen t)
+
+;; Load the color configuration file
+(require 'my-colors)
 
 ;; load up the irc client
 (require 'erc)
@@ -106,4 +109,3 @@
 
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
-
