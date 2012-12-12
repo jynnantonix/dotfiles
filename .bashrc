@@ -132,7 +132,8 @@ ssh-reagent() {
             return
         fi
     done
-    echo "Cannot find working SSH Agent";
+    echo "Cannot find working SSH Agent. Creating new agent";
+    eval `ssh-agent`;
 }
 
 # make tags in specified directory
