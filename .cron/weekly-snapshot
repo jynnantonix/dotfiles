@@ -1,0 +1,60 @@
+#!/bin/bash
+#
+# @file       weekly-snapshot
+# @author     Chirantan Ekbote (chirantan.ekbote <at> gmail.com)
+# @date       2012-11-01
+# @version    0.4
+# @brief      Script to consolidate all snapshots older than 7 days
+#             into one weekly snapshot
+#
+# ----------------------------------------------------------------------
+
+unset PATH  # suggestion from H. Milz: avoid accidental use of $PATH
+
+# ------------- system commands used by this script --------------------
+
+MOUNT=/bin/mount;
+
+ECHO=/usr/bin/echo;
+MV=/usr/bin/mv;
+RM=/usr/bin/rm;
+SORT=/usr/bin/sort;
+FIND=/usr/bin/find;
+
+# ------------- file locations -----------------------------------------
+
+BACKUP_DEV=/dev/md3;
+BACKUP_DIR=/mnt/backups;
+
+# ------------- the script itself --------------------------------------
+
+# mount the snapshot mountpoint as read-write
+$MOUNT -o remount,rw "${BACKUP_DEV}" "${BACKUP_DIR}" ;
+if (( $? )); then
+{
+    $ECHO "snapshot: could not remount ${BACKUP_DIR} readwrite";
+    exit;
+}
+fi;
+
+# Get all the snapshots more than 7 days old
+$ECHO "Starting weekly snapshot..."
+OLD_SNAPSHOTS=(`$SORT -r <( $FIND "${BACKUP_DIR}"/daily/ -maxdepth \
+1 -mtime +7) `);
+
+# Move the latest snapshot to the weekly directory
+$ECHO "Moving latest snapshot ${OLD_SNAPSHOTS[0]}..."
+$MV "${OLD_SNAPSHOTS[0]}" "${BACKUP_DIR}"/weekly ;
+
+# Delete all the other snapshots
+$ECHO "Deleting snapshots ${OLD_SNAPSHOT[@]:1}"
+$RM -r "${OLD_SNAPSHOTS[@]:1}" ;
+
+# now remount the RW snapshot mountpoint as readonly
+$MOUNT -o remount,ro "${BACKUP_DEV}" "${BACKUP_DIR}" ;
+if (( $? )); then
+{
+    $ECHO "snapshot: could not remount ${BACKUP_DIR} readonly";
+    exit;
+} fi;
+

@@ -1,0 +1,66 @@
+#!/bin/bash
+#
+# @file       snapshot
+# @author     Chirantan Ekbote (chirantan.ekbote <at> gmail.com)
+# @date       2012-10-18
+# @version    0.3
+# @brief      Script to generate a snapshot of the system using rsync.
+#
+# ----------------------------------------------------------------------
+
+unset PATH  # suggestion from H. Milz: avoid accidental use of $PATH
+
+# ------------- system commands used by this script --------------------
+
+MOUNT=/bin/mount;
+
+ECHO=/usr/bin/echo;
+RM=/usr/bin/rm;
+LN=/usr/bin/ln;
+MKDIR=/usr/bin/mkdir;
+RSYNC=/usr/bin/rsync;
+DATE=/usr/bin/date;
+
+# ------------- file locations -----------------------------------------
+
+SOURCE_DIR=/;
+BACKUP_DEV=/dev/md3;
+BACKUP_DIR=/mnt/backups;
+EXCLUDES=/home/lost+found,/dev/*,/proc/*,/var/lib/pacman/sync/*,\
+/home/*/.thumbnails/*,/sys/*,/tmp/*,/run/*,/mnt/*,/media/*,/lost+found,\
+/home/*/.gvfs;
+EXCLUDE_ARGS=`eval ${ECHO} --exclude={"${EXCLUDES}"}`;
+
+# ------------- the script itself --------------------------------------
+
+# Get the current time. We will use this as the name of the backup folder
+TIME=$($DATE +%Y%m%d%H%M%S) ;
+
+# mount the snapshot mountpoint as read-write
+$MOUNT -o remount,rw "${BACKUP_DEV}" "${BACKUP_DIR}" ;
+if (( $? )); then
+{
+    $ECHO "snapshot: could not remount ${BACKUP_DIR} readwrite";
+    exit;
+}
+fi;
+
+# Make the backup directory
+$MKDIR "${BACKUP_DIR}"/hourly/$TIME;
+
+# Do the backup
+$RSYNC -aAX --link-dest="${BACKUP_DIR}"/current/ $EXCLUDE_ARGS \
+"${SOURCE_DIR}"/* "${BACKUP_DIR}"/hourly/$TIME ;
+
+# update the current backup
+$RM "${BACKUP_DIR}"/current ;
+$LN -s "${BACKUP_DIR}"/hourly/$TIME "${BACKUP_DIR}"/current ;
+
+# now remount the RW snapshot mountpoint as readonly
+$MOUNT -o remount,ro "${BACKUP_DEV}" "${BACKUP_DIR}" ;
+if (( $? )); then
+{
+    $ECHO "snapshot: could not remount ${BACKUP_DIR} readonly";
+    exit;
+} fi;
+
