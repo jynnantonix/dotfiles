@@ -5,10 +5,10 @@
 #
 
 # Set the layout to be a 2x2 grid
-obsetlayout 0 2 2 0
+obsetlayout 0 2 2 0 &
 
 # Launch terminal
-urxvt
+urxvt &
 
 # If you want to use GNOME config tools...
 #
