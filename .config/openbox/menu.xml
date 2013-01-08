@@ -292,6 +292,14 @@
       </startupnotify>
     </action>
   </item>
+  <item label="Blender">
+    <action name="Execute">
+      <command>blender</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
   <!--
   <item label="Gimp">
     <action name="Execute">
