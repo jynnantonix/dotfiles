@@ -81,7 +81,7 @@
 
 ;; enable shell-script-mode for AUR pkgbuilds
 (setq auto-mode-alist
-      (cons '("PKGBUILD\'" . shell-script-mode) auto-mode-alist))
+      (cons '("PKGBUILD\\'" . shell-script-mode) auto-mode-alist))
 
 ;; toggle window dedication
 (defun toggle-window-dedicated()
@@ -106,12 +106,12 @@ nothing but whitespace between them.  It then indents the markup
 by using nxml's indentation rules."
   (interactive "r")
   (save-excursion
-      (nxml-mode)
-      (goto-char begin)
-      (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
-        (backward-char) (insert "\n"))
-      (indent-region begin end))
-    (message "Ah, much better!"))
+    (nxml-mode)
+    (goto-char begin)
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
+      (backward-char) (insert "\n"))
+    (indent-region begin end))
+  (message "Ah, much better!"))
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
