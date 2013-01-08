@@ -836,6 +836,16 @@
     <application class="*">
       <decor>no</decor>
     </application>
+    <!-- wings3d is always fullscreen -->
+    <application name="beam">
+      <focus>yes</focus>
+      <position>
+        <x>center</x>
+        <y>20</y>
+      </position>
+      <fullscreen>yes</fullscreen>
+      <maximized>true</maximized>
+    </application>
     <!-- emacs is always fullscreen -->
     <application name="emacs">
       <focus>yes</focus>

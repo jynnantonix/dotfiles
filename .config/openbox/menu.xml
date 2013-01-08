@@ -276,6 +276,14 @@
 </menu>
 
 <menu id="apps-graphics-menu" label="Graphics">
+  <item label="Wings3D">
+    <action name="Execute">
+      <command>wings3d</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
   <item label="OpenSCAD">
     <action name="Execute">
       <command>openscad</command>
