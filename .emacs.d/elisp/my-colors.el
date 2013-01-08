@@ -12,6 +12,11 @@
 ;; Set foreground, background, and font
 (set-face-attribute 'default nil :foreground "white" :background "black" :family "Terminus") 
 
+;; Set compilation colors
+(add-hook 'compilation-mode-hook
+	  (function (lambda ()
+		      (set-face-attribute 'compilation-error nil :foreground "firebrick2"))))
+
 ;; Set erc colors
 (eval-after-load 'erc-mode
   '(progn
