@@ -284,6 +284,14 @@
       </startupnotify>
     </action>
   </item>
+  <item label="Inkscape">
+    <action name="Execute">
+      <command>inkscape</command>
+      <startupnotify>
+        <enabled>yes</enabled>
+      </startupnotify>
+    </action>
+  </item>
   <item label="OpenSCAD">
     <action name="Execute">
       <command>openscad</command>

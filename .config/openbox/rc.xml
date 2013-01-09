@@ -836,6 +836,16 @@
     <application class="*">
       <decor>no</decor>
     </application>
+    <!-- inkscape is always fullscreen -->
+    <application name="inkscape">
+      <focus>yes</focus>
+      <position>
+        <x>center</x>
+        <y>20</y>
+      </position>
+      <fullscreen>yes</fullscreen>
+      <maximized>true</maximized>
+    </application>
     <!-- wings3d is always fullscreen -->
     <application name="beam">
       <focus>yes</focus>
