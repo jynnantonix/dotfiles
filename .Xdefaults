@@ -33,9 +33,3 @@ URxvt*color14: #34E2E2
 ! white
 URxvt*color7: #D3D7CF
 URxvt*color15: #EEEEEC
-
-! use tabbed browsing and clickable urls
-URxvt*perl-ext-common: default,matcher,tabbedex
-URxvt*urlLauncher: /usr/bin/conkeror
-URxvt*matcher.button: 1
-URxvt*colorUL: #86a2be
