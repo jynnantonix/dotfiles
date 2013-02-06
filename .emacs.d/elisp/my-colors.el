@@ -20,6 +20,8 @@
 ;; Set erc colors
 (eval-after-load 'erc-mode
   '(progn
+     (set-face-attribute 'bg:erc-input-face nil :background "turquoise")
+     (set-face-attribute 'bg:erc-my-nick-face nil :background "dark turquoise" :weight 'bold)
      (set-face-attribute 'bg:erc-color-face0 nil :background "dark gray")
      (set-face-attribute 'bg:erc-color-face10 nil :background "dodger blue")
      (set-face-attribute 'fg:erc-color-face1 nil :foreground "gainsboro")
