@@ -123,5 +123,8 @@ by using nxml's indentation rules."
 (global-set-key (kbd "<f7>") 'compile)
 (global-set-key (kbd "<f8>") 'gdb)
 
+;; use C-. to repeat commands
+(global-set-key (kbd "C-.") 'repeat)
+
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
