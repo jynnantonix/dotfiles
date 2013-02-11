@@ -4,23 +4,24 @@
 ;; Don't allow the startup screen to show
 (setq inhibit-startup-screen t)
 
+;; Don't want scroll bar, menu bar, or tool bar
+(scroll-bar-mode -1)
+(menu-bar-mode -1)
+(tool-bar-mode -1)
+
 ;; Load the color configuration file
 (require 'my-colors)
 
 ;; load up the irc client
 (require 'erc)
 
-;; load up the w3m browser in emacs
-(require 'w3m-load)
-(setq w3m-use-cookies t)
-
 ;; use ido-mode for improved buffer switching
 (require 'ido)
 (ido-mode t)
 
 ;; use AucTex for LaTex files
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;(load "auctex.el" nil t t)
+;(load "preview-latex.el" nil t t)
 
 ;; turn on column numbers
 (column-number-mode t)
@@ -56,21 +57,20 @@
 
 ;; Use shell-pop for running the shell
 (require 'shell-pop)
+(shell-pop-set-internal-mode "eshell")
 (global-set-key (kbd "<f6>") 'shell-pop)
 
 ;; use auto-fill for latex
-(add-hook 'latex-mode-hook
-          (function (lambda ()
-                      (setq auto-fill-mode t))))
+(add-hook 'latex-mode-hook (lambda ()
+			     (setq auto-fill-mode t)))
 
 ;; change python indents to 4 spaces and set the fill-column
 ;; to 79
-(add-hook 'python-mode-hook 
-          (function (lambda ()
-                      (setq python-guess-indent nil
-                            python-indent 4
-                            fill-column 79
-                            auto-fill-mode t))))
+(add-hook 'python-mode-hook (lambda ()
+			      (setq python-guess-indent nil
+				    python-indent 4
+				    fill-column 79
+				    auto-fill-mode t)))
 
 ;; enable cmake-mode for cmake files
 (require 'cmake-mode)
