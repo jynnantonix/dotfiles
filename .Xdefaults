@@ -1,13 +1,9 @@
 ! urxvt options
-URxvt*transparent: true
 URxvt*scrollBar: false
-URxvt*borderLess: true
 
 ! foreground, background, and fonts
 URxvt*foreground: #BEBEBE
 URxvt*background: #0C0D0E
-URxvt*font: -*-terminus-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
-URxvt*boldFont: -*-terminus-medium-r-normal-*-14-*-*-*-*-*-iso8859-1
 
 ! black
 URxvt*color0: #2E3436
