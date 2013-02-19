@@ -3,6 +3,7 @@ HISTFILE=~/.histfile
 HISTSIZE=500
 SAVEHIST=500
 setopt extendedglob
+setopt null_glob
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
@@ -81,7 +82,8 @@ alias cowinfo='cower -i'
 ssh-reagent() {
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK="${agent}";
-        if [ `ssh-add -l 2> /dev/null` ]; then
+	ssh-add -l 2>&1 > /dev/null
+        if [[ $? -eq 0 ]]; then
             echo "Found working SSH Agent" ;
             ssh-add -l ;
             return
