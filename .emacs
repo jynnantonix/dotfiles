@@ -9,11 +9,11 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;; Have w3m ready incase we need to do some browsing
+(require 'w3m-load)
+
 ;; Load the color configuration file
 (require 'my-colors)
-
-;; load up the irc client
-(require 'erc)
 
 ;; use ido-mode for improved buffer switching
 (require 'ido)
@@ -118,6 +118,10 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
 (global-set-key (kbd "C-c <up>") 'windmove-up)              ; move to upper window
 (global-set-key (kbd "C-c <down>")  'windmove-down)         ; move to lower window
+(global-set-key (kbd "H-h") 'windmove-left)                 ; move to left window
+(global-set-key (kbd "H-l") 'windmove-right)                ; move to right window
+(global-set-key (kbd "H-k") 'windmove-up)                   ; move to upper window
+(global-set-key (kbd "H-j")  'windmove-down)                ; move to lower window
 
 ;; set functions keys to some useful commands
 (global-set-key (kbd "<f7>") 'compile)
