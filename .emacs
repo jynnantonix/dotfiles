@@ -9,6 +9,13 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;; Use continuous mode when using DocView and mimic emacs scrolling
+(require 'doc-view)
+(setq doc-view-continuous t)
+(define-key doc-view-mode-map (kbd "C-v") 'doc-view-scroll-up-or-next-page)
+(define-key doc-view-mode-map (kbd "M-v") 'doc-view-scroll-down-or-previous-page)
+
+
 ;; Have w3m ready incase we need to do some browsing
 (require 'w3m-load)
 
