@@ -120,6 +120,20 @@ by using nxml's indentation rules."
     (indent-region begin end))
   (message "Ah, much better!"))
 
+;; functions to scroll one line at a time
+(defun scroll-up-one-line ()
+  (interactive)
+  (let ((current-prefix-arg '(1)))
+    (call-interactively 'scroll-up)))
+
+(defun scroll-down-one-line ()
+  (interactive)
+  (let ((current-prefix-arg '(1)))
+    (call-interactively 'scroll-down)))
+
+(global-set-key (kbd "C->") 'scroll-up-one-line)
+(global-set-key (kbd "C-<") 'scroll-down-one-line)
+
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
 (global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
