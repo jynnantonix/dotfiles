@@ -27,6 +27,9 @@
 *.log
 *.sql
 *.sqlite
+cscope.files
+cscope.out
+TAGS
 
 ##############################
 #     OS Generated Files     #
