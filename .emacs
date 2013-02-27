@@ -15,7 +15,6 @@
 (define-key doc-view-mode-map (kbd "C-v") 'doc-view-scroll-up-or-next-page)
 (define-key doc-view-mode-map (kbd "M-v") 'doc-view-scroll-down-or-previous-page)
 
-
 ;; Have w3m ready incase we need to do some browsing
 (require 'w3m-load)
 
@@ -86,9 +85,10 @@
                 ("\\.cmake\\'" . cmake-mode))
               auto-mode-alist))
 
-;; enable shell-script-mode for AUR pkgbuilds
+;; enable pkgbuild-mode for AUR pkgbuilds
+(autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
 (setq auto-mode-alist
-      (cons '("PKGBUILD\\'" . shell-script-mode) auto-mode-alist))
+      (cons '("PKGBUILD\\'" . pkgbuild-mode) auto-mode-alist))
 
 ;; toggle window dedication
 (defun toggle-window-dedicated()
@@ -131,8 +131,8 @@ by using nxml's indentation rules."
   (let ((current-prefix-arg '(1)))
     (call-interactively 'scroll-down)))
 
-(global-set-key (kbd "C->") 'scroll-up-one-line)
-(global-set-key (kbd "C-<") 'scroll-down-one-line)
+(global-set-key (kbd "M-n") 'scroll-up-one-line)
+(global-set-key (kbd "M-p") 'scroll-down-one-line)
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
