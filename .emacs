@@ -9,6 +9,12 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;; turn on column numbers
+(column-number-mode t)
+
+;; set the default tab width to 2 spaces
+(setq default-tab-width 2)
+
 ;; Use continuous mode when using DocView and mimic emacs scrolling
 (require 'doc-view)
 (setq doc-view-continuous t)
@@ -17,6 +23,9 @@
 
 ;; Have w3m ready incase we need to do some browsing
 (require 'w3m-load)
+(setq w3m-use-cookies t)
+(setq browse-url-browser-function 'w3m-browse-url)
+(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
 ;; Load the color configuration file
 (require 'my-colors)
@@ -26,12 +35,16 @@
 (ido-mode t)
 
 ;; use AucTex for LaTex files
-;(load "auctex.el" nil t t)
-;(load "preview-latex.el" nil t t)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+;; make AucTex ask for the master file
+(setq-default Tex-master nil)  
 
-;; turn on column numbers
-(column-number-mode t)
-
+;; use reftex with auctex         
+(setq reftex-plug-into-AUCTeX t)  
+(add-hook 'reftex-load-hook 'imenu-add-menubar-index)
+(add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
+                                                                                      
 ;; use google's code style for C/C++
 (require 'cc-mode)
 (require 'google-c-style)
@@ -41,6 +54,9 @@
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
       (cons '("\\.cu$" . c-mode) auto-mode-alist))
+
+; use go mode for Go files
+(require 'go-mode-load)
 
 ;; load xcscope for indexing files
 ;; and ascope for fast searching
