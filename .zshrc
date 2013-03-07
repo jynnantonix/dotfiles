@@ -82,7 +82,7 @@ alias cowinfo='cower -i'
 ssh-reagent() {
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK="${agent}";
-	ssh-add -l 2>&1 > /dev/null
+				ssh-add -l 2>&1 > /dev/null
         if [[ $? -eq 0 ]]; then
             echo "Found working SSH Agent" ;
             ssh-add -l ;
@@ -92,6 +92,9 @@ ssh-reagent() {
     echo "Cannot find working SSH Agent. Creating new agent";
     eval `ssh-agent`;
 }
+
+# pkgfile command not found hook
+source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Configure the prompt
 autoload -U colors 
