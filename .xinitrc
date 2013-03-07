@@ -14,7 +14,11 @@ fi
 if [ -f "$HOME"/.Xmodmap ]; then
     /usr/bin/xmodmap "$HOME"/.Xmodmap
 fi
-C
+
+# start emacs daemon and shell
+emacs --daemon &
+st -e tmux &
+
 # exec gnome-session
 # exec ck-launch-session startkde
 # exec startxfce4
