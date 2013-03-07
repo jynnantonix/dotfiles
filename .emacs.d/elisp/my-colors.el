@@ -10,7 +10,7 @@
 ;;; Code:
 
 ;; Set foreground, background, and font
-(set-face-attribute 'default nil :foreground "white" :background "black" :font "-*-terminus-medium-r-*-*-10-*-*-*-*-*-*-*") 
+(set-face-attribute 'default nil :foreground "white" :background "black")
 
 ;; Set compilation colors
 (add-hook 'compilation-mode-hook
