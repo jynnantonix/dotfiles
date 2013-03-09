@@ -15,6 +15,10 @@
 ;; set the default tab width to 2 spaces
 (setq default-tab-width 2)
 
+;; use git and magit to handle repos
+(require 'git)
+(autoload 'magit-status "magit" nil t)
+
 ;; Use continuous mode when using DocView and mimic emacs scrolling
 (require 'doc-view)
 (setq doc-view-continuous t)
