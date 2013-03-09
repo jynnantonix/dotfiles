@@ -151,8 +151,12 @@ by using nxml's indentation rules."
   (let ((current-prefix-arg '(1)))
     (call-interactively 'scroll-down)))
 
+;; scroll lines globally
 (global-set-key (kbd "M-n") 'scroll-up-one-line)
 (global-set-key (kbd "M-p") 'scroll-down-one-line)
+
+;; overwrite M-n in w3m to scroll lines
+(define-key w3m-mode-map (kbd "M-n") 'scroll-up-one-line)
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
