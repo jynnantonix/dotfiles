@@ -30,6 +30,10 @@
 (setq w3m-use-cookies t)
 (setq browse-url-browser-function 'w3m-browse-url)
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+(eval-after-load "w3m"
+  '(progn
+     ;; Overwrite copy-buffer because C-c C-t does the same thing
+     (define-key w3m-mode-map (kbd "M-n") 'scroll-up-one-line)))
 
 ;; Load the color configuration file
 (require 'my-colors)
@@ -48,7 +52,13 @@
 (setq reftex-plug-into-AUCTeX t)  
 (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
 (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
-                                                                                      
+
+;; use wanderlust and bbdb for emails
+(require 'bbdb)
+(bbdb-initialize)
+(require 'wl)
+(require 'bbdb-wl)
+
 ;; use google's code style for C/C++
 (require 'cc-mode)
 (require 'google-c-style)
@@ -59,7 +69,7 @@
 (setq auto-mode-alist
       (cons '("\\.cu$" . c-mode) auto-mode-alist))
 
-; use go mode for Go files
+;; use go mode for Go files
 (require 'go-mode-load)
 
 ;; load xcscope for indexing files
@@ -88,15 +98,15 @@
 
 ;; use auto-fill for latex
 (add-hook 'latex-mode-hook (lambda ()
-			     (setq auto-fill-mode t)))
+                             (setq auto-fill-mode t)))
 
 ;; change python indents to 4 spaces and set the fill-column
 ;; to 79
 (add-hook 'python-mode-hook (lambda ()
-			      (setq python-guess-indent nil
-				    python-indent 4
-				    fill-column 79
-				    auto-fill-mode t)))
+                              (setq python-guess-indent nil
+                                    python-indent 4
+                                    fill-column 79
+                                    auto-fill-mode t)))
 
 ;; enable cmake-mode for cmake files
 (require 'cmake-mode)
@@ -155,9 +165,6 @@ by using nxml's indentation rules."
 (global-set-key (kbd "M-n") 'scroll-up-one-line)
 (global-set-key (kbd "M-p") 'scroll-down-one-line)
 
-;; overwrite M-n in w3m to scroll lines
-(define-key w3m-mode-map (kbd "M-n") 'scroll-up-one-line)
-
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
 (global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
@@ -167,6 +174,12 @@ by using nxml's indentation rules."
 (global-set-key (kbd "H-l") 'windmove-right)                ; move to right window
 (global-set-key (kbd "H-k") 'windmove-up)                   ; move to upper window
 (global-set-key (kbd "H-j")  'windmove-down)                ; move to lower window
+
+;; switch keybindings for regex and non-regex search
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+(global-set-key (kbd "C-M-s") 'isearch-forward)
+(global-set-key (kbd "C-M-r") 'isearch-backward)
 
 ;; set functions keys to some useful commands
 (global-set-key (kbd "<f7>") 'compile)
