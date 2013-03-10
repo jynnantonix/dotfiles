@@ -15,9 +15,14 @@ if [ -f "$HOME"/.Xmodmap ]; then
     /usr/bin/xmodmap "$HOME"/.Xmodmap
 fi
 
-# start emacs daemon and shell
-emacs --daemon &
-st -e tmux &
+# start emacs daemon
+/usr/bin/emacs --daemon &
+
+# start terminal with tmux session
+/usr/bin/st -e /usr/bin/tmux &
+
+# launch screensaver daemon
+#/usr/bin/xscreensaver -no-splash &
 
 # exec gnome-session
 # exec ck-launch-session startkde
