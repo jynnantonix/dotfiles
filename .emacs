@@ -17,7 +17,7 @@
 
 ;; use git and magit to handle repos
 (require 'git)
-(autoload 'magit-status "magit" nil t)
+(require 'magit)
 
 ;; Use continuous mode when using DocView and mimic emacs scrolling
 (require 'doc-view)
@@ -45,6 +45,7 @@
 ;; use AucTex for LaTex files
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
+
 ;; make AucTex ask for the master file
 (setq-default Tex-master nil)  
 
@@ -52,6 +53,10 @@
 (setq reftex-plug-into-AUCTeX t)  
 (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
 (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
+
+;; use auto-fill for latex
+(add-hook 'latex-mode-hook (lambda ()
+                             (setq auto-fill-mode t)))
 
 ;; use wanderlust and bbdb for emails
 (require 'bbdb)
@@ -88,6 +93,10 @@
 (define-key c-mode-base-map (kbd "C-c a o") 'ascope-clear-overlay-arrow)
 (define-key c-mode-base-map (kbd "C-c a u") 'ascope-pop-mark)
 
+;; use idb as the debugger and load intel's provided idb.el
+(load-file "/opt/intel/bin/idb.el")
+(global-set-key (kbd "<f8>") 'idb)
+
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -95,10 +104,6 @@
 (require 'shell-pop)
 (shell-pop-set-internal-mode "eshell")
 (global-set-key (kbd "<f6>") 'shell-pop)
-
-;; use auto-fill for latex
-(add-hook 'latex-mode-hook (lambda ()
-                             (setq auto-fill-mode t)))
 
 ;; change python indents to 4 spaces and set the fill-column
 ;; to 79
@@ -116,7 +121,7 @@
               auto-mode-alist))
 
 ;; enable pkgbuild-mode for AUR pkgbuilds
-(autoload 'pkgbuild-mode "pkgbuild-mode.el" "PKGBUILD mode." t)
+(require 'pkgbuild-mode)
 (setq auto-mode-alist
       (cons '("PKGBUILD\\'" . pkgbuild-mode) auto-mode-alist))
 
@@ -181,9 +186,12 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-M-s") 'isearch-forward)
 (global-set-key (kbd "C-M-r") 'isearch-backward)
 
+;; switch keybindings for regex and non-regex query replace
+(global-set-key (kbd "M-%") 'query-replace-regexp)
+(global-set-key (kbd "C-M-%") 'query-replace)
+
 ;; set functions keys to some useful commands
 (global-set-key (kbd "<f7>") 'compile)
-(global-set-key (kbd "<f8>") 'gdb)
 
 ;; use C-. to repeat commands
 (global-set-key (kbd "C-.") 'repeat)
