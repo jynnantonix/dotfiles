@@ -64,6 +64,11 @@
 (require 'wl)
 (require 'bbdb-wl)
 
+;; emms for multimedia files
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+
 ;; use google's code style for C/C++
 (require 'cc-mode)
 (require 'google-c-style)
