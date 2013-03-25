@@ -5,9 +5,9 @@
 (setq inhibit-startup-screen t)
 
 ;; Don't want scroll bar, menu bar, or tool bar
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 
 ;; turn on column numbers
 (column-number-mode t)
@@ -47,10 +47,10 @@
 (load "preview-latex.el" nil t t)
 
 ;; make AucTex ask for the master file
-(setq-default Tex-master nil)  
+(setq-default Tex-master nil)
 
-;; use reftex with auctex         
-(setq reftex-plug-into-AUCTeX t)  
+;; use reftex with auctex
+(setq reftex-plug-into-AUCTeX t)
 (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
 (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
 
@@ -136,7 +136,7 @@
   (interactive)
   (message
    (if (let (window (get-buffer-window (current-buffer)))
-         (set-window-dedicated-p 
+         (set-window-dedicated-p
           window
           (not (window-dedicated-p window))))
        "Window %s is dedicated"
@@ -155,7 +155,7 @@ by using nxml's indentation rules."
   (save-excursion
     (nxml-mode)
     (goto-char begin)
-    (while (search-forward-regexp "\>[ \\t]*\<" nil t) 
+    (while (search-forward-regexp "\>[ \\t]*\<" nil t)
       (backward-char) (insert "\n"))
     (indent-region begin end))
   (message "Ah, much better!"))
@@ -174,6 +174,17 @@ by using nxml's indentation rules."
 ;; scroll lines globally
 (global-set-key (kbd "M-n") 'scroll-up-one-line)
 (global-set-key (kbd "M-p") 'scroll-down-one-line)
+(global-set-key (kbd "H-n") 'scroll-up-one-line)
+(global-set-key (kbd "H-p") 'scroll-down-one-line)
+
+;; call M-x without the alt key
+(global-set-key (kbd "C-c C-m") 'execute-extended-command)
+
+;; easy keymap for backword kill word
+(global-set-key (kbd "C-w") 'backward-kill-word)
+
+;; remap kill-region since we overwrote it with backword-kill-word
+(global-set-key (kbd "C-c C-k") 'kill-region)
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
