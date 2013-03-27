@@ -15,6 +15,9 @@
 ;; set the default tab width to 2 spaces
 (setq default-tab-width 2)
 
+;; always delete trailing whitespace before saving
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 ;; use git and magit to handle repos
 (require 'git)
 (require 'magit)
@@ -58,6 +61,10 @@
 (add-hook 'latex-mode-hook (lambda ()
                              (setq auto-fill-mode t)))
 
+;; load gnuplot
+(require 'gnuplot)
+(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
+
 ;; use wanderlust and bbdb for emails
 (require 'bbdb)
 (bbdb-initialize)
@@ -68,6 +75,12 @@
 (require 'emms-setup)
 (emms-standard)
 (emms-default-players)
+
+;; volume control and playback through emms
+(require 'emms-volume)
+(global-set-key (kbd "<XF86AudioNext>") 'emms-next)
+(global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
+(global-set-key (kbd "<XF86AudioPlay>") 'emms-pause)
 
 ;; use google's code style for C/C++
 (require 'cc-mode)
@@ -81,6 +94,9 @@
 
 ;; use go mode for Go files
 (require 'go-mode-load)
+
+;; always run gofmt before saving
+(add-hook 'before-save-hook #'gofmt-before-save)
 
 ;; load xcscope for indexing files
 ;; and ascope for fast searching
@@ -180,11 +196,9 @@ by using nxml's indentation rules."
 ;; call M-x without the alt key
 (global-set-key (kbd "C-c C-m") 'execute-extended-command)
 
-;; easy keymap for backword kill word
+;; swap backward-kill-word and kill-region
 (global-set-key (kbd "C-w") 'backward-kill-word)
-
-;; remap kill-region since we overwrote it with backword-kill-word
-(global-set-key (kbd "C-c C-k") 'kill-region)
+(global-set-key (kbd "<C-backspace>") 'kill-region)
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
