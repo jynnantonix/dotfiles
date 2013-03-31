@@ -91,6 +91,10 @@
 (setq icicle-prefix-complete-keys '([backtab]))
 (setq icicle-apropos-complete-keys '([tab]))
 
+;; use flymake for on-th-fly syntax checking
+(require 'flymake)
+(add-hook 'find-file-hook 'flymake-find-file-hook)
+
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
@@ -141,7 +145,6 @@
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-(add-hook 'c-mode-common-hook 'flymake-mode)
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
