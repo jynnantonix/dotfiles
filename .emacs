@@ -137,6 +137,7 @@
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+(add-hook 'c-mode-common-hook 'flymake-mode)
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
