@@ -93,13 +93,18 @@ ssh-reagent() {
     eval `ssh-agent`;
 }
 
+# use mplayer to stream youtube videos
+playstream() {
+		/usr/bin/mplayer -cache 262144 -cache-min 2 -prefer-ipv4 $(/usr/bin/youtube-dl -g $1)
+}
+
 # pkgfile command not found hook
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Configure the prompt
-autoload -U colors 
-colors 
-autoload -U promptinit 
+autoload -U colors
+colors
+autoload -U promptinit
 promptinit
 
 prompt_status() {
