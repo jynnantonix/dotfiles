@@ -80,8 +80,12 @@
 (define-key tetris-mode-map (kbd "<up>") 'tetris-move-bottom)
 
 ;; use icicles for tab completion
-(require 'icicles)
-(icy-mode t)
+;(require 'icicles)
+;(icy-mode t)
+
+;; use ido for fast buffer switching
+(require 'ido)
+(ido-mode t)
 
 ;; swap prefix and apropos completion keys
 (setq icicle-prefix-complete-keys '([backtab]))
