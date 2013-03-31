@@ -72,15 +72,16 @@
      (define-key w3m-mode-map (kbd "p") 'w3m-stream)))
 
 ;; Load the color configuration file
-(require 'my-colors)
+;(require 'my-colors)
+(require 'zenburn-theme)
 
 ;; tetris!!
 (require 'tetris)
 (define-key tetris-mode-map (kbd "<up>") 'tetris-move-bottom)
 
-;; use ido-mode for improved buffer switching
-(require 'ido)
-(ido-mode t)
+;; use icicles for tab completion
+(require 'icicles)
+(icy-mode t)
 
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
