@@ -165,10 +165,6 @@
 (define-key c-mode-base-map (kbd "C-c a o") 'ascope-clear-overlay-arrow)
 (define-key c-mode-base-map (kbd "C-c a u") 'ascope-pop-mark)
 
-;; use idb as the debugger and load intel's provided idb.el
-(load-file "/opt/intel/bin/idb.el")
-(global-set-key (kbd "<f8>") 'idb)
-
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 
@@ -270,7 +266,7 @@ by using nxml's indentation rules."
 
 ;; set functions keys to some useful commands
 (global-set-key (kbd "<f7>") 'compile)
-
+(global-set-key (kbd "<f8>") 'gdb)
 ;; use C-. to repeat commands
 (global-set-key (kbd "C-.") 'repeat)
 
