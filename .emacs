@@ -83,6 +83,10 @@
 (require 'icicles)
 (icy-mode t)
 
+;; swap prefix and apropos completion keys
+(setq icicle-prefix-complete-keys '([backtab]))
+(setq icicle-apropos-complete-keys '([tab]))
+
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
