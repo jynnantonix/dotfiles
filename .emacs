@@ -52,7 +52,7 @@
               (concat "mplayer -cache 102400 -cache-min 2 -prefer-ipv4"
                       " $(youtube-dl -g " (shell-quote-argument url) ")" )))
       (setq mode-line-process '(":%s"))
-      (shell-mode)
+      (require 'shell) (shell-mode)
       (set-process-sentinel proc 'shell-command-sentinel)
       ;; Use the comint filter for proper handling of carriage motion
       ;; (see `comint-inhibit-carriage-motion'),.
