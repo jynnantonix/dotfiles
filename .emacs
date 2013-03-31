@@ -28,38 +28,82 @@
 (define-key doc-view-mode-map (kbd "C-v") 'doc-view-scroll-up-or-next-page)
 (define-key doc-view-mode-map (kbd "M-v") 'doc-view-scroll-down-or-previous-page)
 
+;; don't ask when reloading pdfs
+(add-to-list 'revert-without-query ".*\.pdf")
+
 ;; Have w3m ready incase we need to do some browsing
 (require 'w3m-load)
 (setq w3m-use-cookies t)
 (setq browse-url-browser-function 'w3m-browse-url)
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+
+;; play video stream using mplayer and youtube-dl
+(defun play-stream (url)
+  (interactive "sURL: ")
+  (let ((buffer (get-buffer-create "*stream-output*")))
+    (with-current-buffer buffer
+      (setq buffer-read-only nil)
+      ;; Setting buffer-read-only to nil doesn't suffice
+      ;; if some text has a non-nil read-only property,
+      ;; which comint sometimes adds for prompts.
+      (let ((inhibit-read-only t))
+        (erase-buffer))
+      (setq proc (start-process-shell-command "streaming" buffer
+              (concat "mplayer -cache 102400 -cache-min 2 -prefer-ipv4"
+                      " $(youtube-dl -g " (shell-quote-argument url) ")" )))
+      (setq mode-line-process '(":%s"))
+      (shell-mode)
+      (set-process-sentinel proc 'shell-command-sentinel)
+      ;; Use the comint filter for proper handling of carriage motion
+      ;; (see `comint-inhibit-carriage-motion'),.
+      (set-process-filter proc 'comint-output-filter))))
+
+;; play a stream through w3m
+(defun w3m-stream ()
+  (interactive)
+  (let ((url (w3m-anchor)))
+    (play-stream url)))
+
 (eval-after-load "w3m"
   '(progn
      ;; Overwrite copy-buffer because C-c C-t does the same thing
-     (define-key w3m-mode-map (kbd "M-n") 'scroll-up-one-line)))
+     (define-key w3m-mode-map (kbd "M-n") 'scroll-up-one-line)
+     ;; Use p to play streaming urls
+     (define-key w3m-mode-map (kbd "p") 'w3m-stream)))
 
 ;; Load the color configuration file
 (require 'my-colors)
+
+;; tetris!!
+(require 'tetris)
+(define-key tetris-mode-map (kbd "<up>") 'tetris-move-bottom)
 
 ;; use ido-mode for improved buffer switching
 (require 'ido)
 (ido-mode t)
 
-;; use AucTex for LaTex files
+;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
 ;; make AucTex ask for the master file
-(setq-default Tex-master nil)
+(setq-default TeX-master nil)
+
+;; default to creating pdf not dvi
+(setq-default TeX-PDF-mode t)
 
 ;; use reftex with auctex
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
 (setq reftex-plug-into-AUCTeX t)
 (add-hook 'reftex-load-hook 'imenu-add-menubar-index)
 (add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
 
 ;; use auto-fill for latex
-(add-hook 'latex-mode-hook (lambda ()
-                             (setq auto-fill-mode t)))
+(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
+
+;; flyspell and math modes
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
 ;; load gnuplot
 (require 'gnuplot)
@@ -70,6 +114,7 @@
 (bbdb-initialize)
 (require 'wl)
 (require 'bbdb-wl)
+(bbdb-wl-setup)
 
 ;; emms for multimedia files
 (require 'emms-setup)
@@ -125,14 +170,6 @@
 (require 'shell-pop)
 (shell-pop-set-internal-mode "eshell")
 (global-set-key (kbd "<f6>") 'shell-pop)
-
-;; change python indents to 4 spaces and set the fill-column
-;; to 79
-(add-hook 'python-mode-hook (lambda ()
-                              (setq python-guess-indent nil
-                                    python-indent 4
-                                    fill-column 79
-                                    auto-fill-mode t)))
 
 ;; enable cmake-mode for cmake files
 (require 'cmake-mode)
