@@ -52,7 +52,6 @@ alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
 # pacman commands
-alias pacman='pacman-color'
 alias pacadd='pacman -S'
 alias pacupgrade='pacman -Syu'    # full system upgrade
 alias pacupdate='pacman -Syy'     # sync and update repositories
