@@ -1,0 +1,40 @@
+# -*- mode: conf-unix -*-
+# Folder definition file
+# This file is generated automatically by Wanderlust/2.15.9 (Almost Unreal).
+#
+# If you edit this file by hand, be sure that comment lines
+# will be washed out by wl-fldmgr.
+#
+
+GMAIL{
+	%INBOX:chirantan.ekbote/clear@imap.gmail.com:993!	"Inbox"
+	.sent "Sent"
+	%[Gmail]/Drafts:chirantan.ekbote/clear@imap.gmail.com:993!	"Drafts"
+#	%[Gmail]/Trash:chirantan.ekbote/clear@imap.gmail.com:993!	"Trash"
+#	%[Gmail]/Spam:chirantan.ekbote/clear@imap.gmail.com:993!	"Spam"
+}
+SEAS{
+	%INBOX:ekbote/clear@email.seas.harvard.edu:993!	"Inbox"
+	%[Wl]/Sent:ekbote/clear@email.seas.harvard.edu:993! "Sent"
+#	%SENT:ekbote/clear@email.seas.harvard.edu:993!	"Sent"
+	%DRAFTS:ekbote/clear@email.seas.harvard.edu:993!	"Drafts"
+#	%TRASH:ekbote/clear@email.seas.harvard.edu:993!	"Trash"
+	%ARCHIVE:ekbote/clear@email.seas.harvard.edu:993!	"Archive"
+}
+LISTS {
+	-gmane.linux.arch.general@news.gmane.org	"arch-gen"
+	-gmane.linux.arch.tur.user@news.gmane.org	"aur-gen"
+	-gmane.linux.arch.devel@news.gmane.org	"arch-dev"
+	-gmane.linux.arch.projects@news.gmane.org "arch-proj"
+	-gmane.mail.wanderlust.general.japanese@news.gmane.org "wanderlust"
+	-gmane.linux.arch.pacman.devel@news.gmane.org  "pacman-dev"
+	-gmane.comp.lib.eigen@news.gmane.org	"eigen"
+	-gmane.comp.sysutils.systemd.devel@news.gmane.org "systemd"
+	-gmane.comp.boot-loaders.u-boot@news.gmane.org	"u-boot"
+}
+
+.drafts "Drafts"
+
+# petname definition (access group, folder in access group)
+
+# end of file.
