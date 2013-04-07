@@ -22,6 +22,9 @@
 (require 'git)
 (require 'magit)
 
+;; use erc for IRC
+(require 'my-erc)
+
 ;; Use continuous mode when using DocView and mimic emacs scrolling
 (require 'doc-view)
 (setq doc-view-continuous t)
