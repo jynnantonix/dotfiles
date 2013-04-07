@@ -94,7 +94,8 @@ ssh-reagent() {
 
 # use mplayer to stream youtube videos
 playstream() {
-		/usr/bin/mplayer -cache 262144 -cache-min 2 -prefer-ipv4 $(/usr/bin/youtube-dl -g $1)
+		/usr/bin/mplayer -cache 262144 -cache-min 2 -cache-seek-min 5 -prefer-ipv4 \
+				$(/usr/bin/youtube-dl -g $1)
 }
 
 # pkgfile command not found hook

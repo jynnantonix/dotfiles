@@ -52,8 +52,8 @@
       (let ((inhibit-read-only t))
         (erase-buffer))
       (setq proc (start-process-shell-command "streaming" buffer
-              (concat "mplayer -cache 102400 -cache-min 2 -prefer-ipv4"
-                      " $(youtube-dl -g " (shell-quote-argument url) ")" )))
+    (concat "mplayer -cache 262144 -cache-min 2 -cache-seek-min 5 -prefer-ipv4"
+						" $(youtube-dl -g " (shell-quote-argument url) ")" )))
       (setq mode-line-process '(":%s"))
       (require 'shell) (shell-mode)
       (set-process-sentinel proc 'shell-command-sentinel)
