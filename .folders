@@ -15,15 +15,15 @@ GMAIL{
 }
 SEAS{
 	%INBOX:ekbote/clear@email.seas.harvard.edu:993!	"Inbox"
-	%[Wl]/Sent:ekbote/clear@email.seas.harvard.edu:993! "Sent"
-#	%SENT:ekbote/clear@email.seas.harvard.edu:993!	"Sent"
+	%Sent Messages:ekbote/clear@email.seas.harvard.edu:993! "Sent"
 	%DRAFTS:ekbote/clear@email.seas.harvard.edu:993!	"Drafts"
 #	%TRASH:ekbote/clear@email.seas.harvard.edu:993!	"Trash"
 	%ARCHIVE:ekbote/clear@email.seas.harvard.edu:993!	"Archive"
 }
 LISTS {
 	-gmane.linux.arch.general@news.gmane.org	"arch-gen"
-	-gmane.linux.arch.tur.user@news.gmane.org	"aur-gen"
+	-gmane.linux.arch.announce@news.gmane.org "arch-announce"
+	-gmane.linux.arch.tur.user@news.gmane.org	"arch-aur"
 	-gmane.linux.arch.devel@news.gmane.org	"arch-dev"
 	-gmane.linux.arch.projects@news.gmane.org "arch-proj"
 	-gmane.mail.wanderlust.general.japanese@news.gmane.org "wanderlust"
