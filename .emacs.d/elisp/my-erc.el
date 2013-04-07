@@ -15,8 +15,8 @@
 ;; name can be be a bit different, which would screw up autoconnect
 (erc-autojoin-mode t)
 (setq erc-autojoin-channels-alist '((".*\\.freenode.net" "#archlinux"
-																		 "#archlinux-pacman" "#emacs")
-																		("localhost" "&bitlbee")))
+                                     "#archlinux-pacman" "#emacs")
+                                    ("localhost" "&bitlbee")))
 
 ;; check channels
 (erc-track-mode t)
@@ -27,20 +27,20 @@
 
 ;; minimal distraction
 (setq erc-format-query-as-channel-p t)
-(setq	erc-track-faces-priority-list '(erc-error-face
-																			erc-current-nick-face
-																			erc-keyword-face
-																			erc-nick-msg-face
-																			erc-direct-msg-face
-																			erc-dangerous-host-face
-																			erc-notice-face
-																			erc-prompt-face))
+(setq erc-track-faces-priority-list '(erc-error-face
+                                      erc-current-nick-face
+                                      erc-keyword-face
+                                      erc-nick-msg-face
+                                      erc-direct-msg-face
+                                      erc-dangerous-host-face
+                                      erc-notice-face
+                                      erc-prompt-face))
 
 ;; don't disturb me with high volume channels unless I am mentioned
-(setq	erc-track-priority-faces-only '("#archlinux" "#emacs"))
+(setq erc-track-priority-faces-only '("#archlinux" "#emacs"))
 
 ;; truncate the length of the channel buffers
-(add-hook 'erc-insert-post-hook	'erc-truncate-buffer)
+(add-hook 'erc-insert-post-hook 'erc-truncate-buffer)
 (setq erc-truncate-buffer-on-save t)
 
 (provide 'my-erc)
