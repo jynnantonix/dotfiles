@@ -43,4 +43,6 @@
 (add-hook 'erc-insert-post-hook 'erc-truncate-buffer)
 (setq erc-truncate-buffer-on-save t)
 
+;; don't reconnect if the connection is broken
+(setq erc-server-auto-reconnect nil)
 (provide 'my-erc)
