@@ -86,13 +86,16 @@
 ;(require 'icicles)
 ;(icy-mode t)
 
+;; swap prefix and apropos completion keys
+;(setq icicle-prefix-complete-keys '([backtab]))
+;(setq icicle-apropos-complete-keys '([tab]))
+
 ;; use ido for fast buffer switching
 (require 'ido)
 (ido-mode t)
 
-;; swap prefix and apropos completion keys
-(setq icicle-prefix-complete-keys '([backtab]))
-(setq icicle-apropos-complete-keys '([tab]))
+;; use ibuffer for more organized buffer management
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; use flymake for on-th-fly syntax checking
 (require 'flymake)
