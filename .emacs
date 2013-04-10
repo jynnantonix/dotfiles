@@ -132,6 +132,9 @@
 (require 'bbdb-wl)
 (bbdb-wl-setup)
 
+;; use the latest org-mode
+(require 'org-install)
+
 ;; emms for multimedia files
 (require 'emms-setup)
 (emms-standard)
@@ -277,6 +280,7 @@ by using nxml's indentation rules."
 ;; set functions keys to some useful commands
 (global-set-key (kbd "<f7>") 'compile)
 (global-set-key (kbd "<f8>") 'gdb)
+
 ;; use C-. to repeat commands
 (global-set-key (kbd "C-.") 'repeat)
 
