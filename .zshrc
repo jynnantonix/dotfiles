@@ -8,7 +8,7 @@ bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/chirantan/.zshrc'
-  
+
 autoload -U compinit
 compinit
 # End of lines added by compinstall
@@ -96,6 +96,12 @@ ssh-reagent() {
 playstream() {
 		/usr/bin/mplayer -cache 262144 -cache-min 2 -cache-seek-min 5 -prefer-ipv4 \
 				$(/usr/bin/youtube-dl -g $1)
+}
+
+# set the brightness
+brightness() {
+		sudo /bin/sh -c "echo $1 > /sys/class/backlight/nvidia_backlight/brightness"
+		sudo /bin/sh -c "echo $(((1024 - $1) / 4)) > /sys/class/leds/smc::kbd_backlight/brightness"
 }
 
 # pkgfile command not found hook
