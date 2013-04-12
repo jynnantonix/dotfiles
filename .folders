@@ -26,6 +26,7 @@ LISTS {
 	-gmane.linux.arch.tur.user@news.gmane.org	"arch-aur"
 	-gmane.linux.arch.devel@news.gmane.org	"arch-dev"
 	-gmane.linux.arch.projects@news.gmane.org "arch-proj"
+	-gmane.emacs.devel@news.gmane.org "emacs-dev"
 	-gmane.mail.wanderlust.general.japanese@news.gmane.org "wanderlust"
 	-gmane.linux.arch.pacman.devel@news.gmane.org  "pacman-dev"
 	-gmane.comp.lib.eigen@news.gmane.org	"eigen"
