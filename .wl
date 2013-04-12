@@ -40,7 +40,7 @@
          (wl-smtp-connection-type . 'starttls)
          (wl-smtp-posting-port . 587)
          (wl-local-domain . "email.seas.harvard.edu")
-				 ("Fcc" . "%[Wl]/Sent:ekbote/clear@email.seas.harvard.edu:993!")
+				 ("Fcc" . "%Sent Messages:ekbote/clear@email.seas.harvard.edu:993!")
 				 (wl-message-id-domain . "email.seas.harvard.edu"))))
 
 
