@@ -1,6 +1,9 @@
 ;; Add the local elisp subdirectory for my files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
+;; set my name
+(setq user-full-name "Chirantan Ekbote")
+
 ;; Don't allow the startup screen to show
 (setq inhibit-startup-screen t)
 
@@ -180,6 +183,12 @@
 (define-key c-mode-base-map (kbd "C-c a i") 'ascope-find-files-including-file)
 (define-key c-mode-base-map (kbd "C-c a o") 'ascope-clear-overlay-arrow)
 (define-key c-mode-base-map (kbd "C-c a u") 'ascope-pop-mark)
+
+;; use header2 to generate and update file headers
+(require 'header2)
+(add-hook 'c-mode-common-hook 'auto-make-header)
+(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+(add-hook 'write-file-hooks 'auto-update-file-header)
 
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
