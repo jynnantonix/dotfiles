@@ -141,6 +141,9 @@
 ;; use the latest org-mode
 (require 'org-install)
 
+;; set the agenda to look in the org folder
+(setq org-agenda-files '("~/.emacs.d/org/"))
+
 ;; emms for multimedia files
 (require 'emms-setup)
 (emms-standard)
