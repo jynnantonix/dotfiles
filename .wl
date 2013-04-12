@@ -79,6 +79,7 @@
  wl-draft-folder ".drafts"
  ;wl-default-folder "%[Gmail]/"           ;; my main inbox
  wl-trash-folder ".trash"             ;; put trash in 'trash'
+ wl-draft-use-frame t
  wl-queue-folder ".queue"             ;; we don't use this
  wl-temporary-file-directory "~/.emacs.d/mail/tmp"
  wl-auto-save-drafts-interval nil
