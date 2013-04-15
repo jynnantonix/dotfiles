@@ -53,9 +53,6 @@
  elmo-localdir-folder-path "~/.emacs.d/mail"
  elmo-msgdb-directory "~/.emacs.d/mail/.elmo"
 
- bbdb-file "~/.emacs.d/.bbdb"
- bbdb-offer-save 'auto
-
  wl-stay-folder-window t                       ;; show the folder pane (left)
  wl-folder-window-width 30                     ;; toggle on/off with 'i'
  wl-user-mail-address-list '("chirantan.ekbote@gmail.com"
@@ -79,47 +76,69 @@
  wl-draft-folder ".drafts"
  ;wl-default-folder "%[Gmail]/"           ;; my main inbox
  wl-trash-folder ".trash"             ;; put trash in 'trash'
- wl-draft-use-frame t
  wl-queue-folder ".queue"             ;; we don't use this
  wl-temporary-file-directory "~/.emacs.d/mail/tmp"
  wl-auto-save-drafts-interval nil
+ wl-draft-use-frame t
  ;; check this folder periodically, and update modeline
- wl-biff-check-folder-list '(".todo") ;; check every 180 seconds
-                                      ;; (default: wl-biff-check-interval)
-)
+ )
 
-(require 'filladapt)
+(setq
+  bbdb-file "~/.emacs.d/.bbdb"
+	bbdb-offer-save 'auto
+	bbdb-pop-up-target-lines 8)
 
-;; from a WL mailing list post by Per b. Sederber
-;; Re-fill messages that arrive poorly formatted
-(defun wl-summary-refill-message (all)
-  (interactive "P")
-  (if (and wl-message-buffer (get-buffer-window wl-message-buffer))
-      (progn
-        (wl-summary-toggle-disp-msg 'on)
-        (with-current-buffer wl-message-buffer
-          (goto-char (point-min))
-          (re-search-forward "^$")
-          (while (or (looking-at "^\\[[1-9]") (looking-at "^$"))
-            (forward-line 1))
-          (let* ((buffer-read-only nil)
-                 (find (lambda (regexp)
-                         (save-excursion
-                           (if (re-search-forward regexp nil t)
-                               (match-beginning 0)
-                             (point-max)))))
-                 (start (point))
-                 (end (if all
-                          (point-max)
-                        (min (funcall find "^[^>\n]* wrote:[ \n]+")
-                             (funcall find "^>>>>>")
-                             (funcall find "^ *>.*\n *>")
-                             (funcall find "^-----Original Message-----")))))
-            (save-restriction
-              (narrow-to-region start end)
-              (filladapt-mode 1)
-              (fill-region (point-min) (point-max)))))
-        (message "Message re-filled"))
-    (message "No message to re-fill")))
+(setq wl-biff-check-folder-list
+			'("%INBOX:chirantan.ekbote/clear@imap.gmail.com:993!"
+				"%INBOX:ekbote/clear@email.seas.harvard.edu:993!"
+				"%Sent Messages:ekbote/clear@email.seas.harvard.edu:993!"
+				"%ARCHIVE:ekbote/clear@email.seas.harvard.edu:993!"))
+;				"-gmane.linux.arch.general@news.gmane.org"
+;				"-gmane.linux.arch.announce@news.gmane.org"
+;				"-gmane.linux.arch.tur.user@news.gmane.org"
+;				"-gmane.linux.arch.devel@news.gmane.org "
+;				"-gmane.linux.arch.projects@news.gmane.org"
+;				"-gmane.mail.wanderlust.general.japanese@news.gmane.org"
+;				"-gmane.linux.arch.pacman.devel@news.gmane.org "
+;				"-gmane.comp.lib.eigen@news.gmane.org "
+;				"-gmane.comp.sysutils.systemd.devel@news.gmane.org"
+;				"-gmane.comp.boot-loaders.u-boot@news.gmane.org "))
 
-(define-key wl-summary-mode-map "\M-q" 'wl-summary-refill-message)
+;; Check every 10 minutes
+(setq wl-biff-check-interval 600)
+
+;(require 'filladapt)
+;
+;;; from a WL mailing list post by Per b. Sederber
+;;; Re-fill messages that arrive poorly formatted
+;(defun wl-summary-refill-message (all)
+;  (interactive "P")
+;  (if (and wl-message-buffer (get-buffer-window wl-message-buffer))
+;      (progn
+;        (wl-summary-toggle-disp-msg 'on)
+;        (with-current-buffer wl-message-buffer
+;          (goto-char (point-min))
+;          (re-search-forward "^$")
+;          (while (or (looking-at "^\\[[1-9]") (looking-at "^$"))
+;            (forward-line 1))
+;          (let* ((buffer-read-only nil)
+;                 (find (lambda (regexp)
+;                         (save-excursion
+;                           (if (re-search-forward regexp nil t)
+;                               (match-beginning 0)
+;                             (point-max)))))
+;                 (start (point))
+;                 (end (if all
+;                          (point-max)
+;                        (min (funcall find "^[^>\n]* wrote:[ \n]+")
+;                             (funcall find "^>>>>>")
+;                             (funcall find "^ *>.*\n *>")
+;                             (funcall find "^-----Original Message-----")))))
+;            (save-restriction
+;              (narrow-to-region start end)
+;              (filladapt-mode 1)
+;              (fill-region (point-min) (point-max)))))
+;        (message "Message re-filled"))
+;    (message "No message to re-fill")))
+;
+;(define-key wl-summary-mode-map "\M-q" 'wl-summary-refill-message)
