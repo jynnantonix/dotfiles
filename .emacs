@@ -132,10 +132,6 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
-;; load gnuplot
-(require 'gnuplot)
-(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
-
 ;; use wanderlust and bbdb for emails
 (require 'bbdb)
 (bbdb-initialize)
@@ -145,6 +141,13 @@
 
 ;; use the latest org-mode
 (require 'org-install)
+
+;; load gnuplot
+(require 'gnuplot)
+(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
+
+;; use org-babel-gnuplot to create graphs from org
+(require 'ob-gnuplot)
 
 ;; set the agenda to look in the org folder
 (setq org-agenda-files '("~/.emacs.d/org/"))
