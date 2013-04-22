@@ -18,6 +18,11 @@
 ;; set the default tab width to 2 spaces
 (setq default-tab-width 2)
 
+;; interactively set a buffer-local tab width
+(defun set-tab-width (num)
+	(interactive "NTab Width: ")
+	(setq tab-width num))
+
 ;; always delete trailing whitespace before saving
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
