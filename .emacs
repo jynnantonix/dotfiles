@@ -107,7 +107,7 @@
 
 ;; use flymake for on-th-fly syntax checking
 (require 'flymake)
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
