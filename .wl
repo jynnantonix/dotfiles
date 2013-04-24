@@ -4,6 +4,7 @@
 (require 'mime-w3m)
 (setq wl-draft-reply-buffer-style 'full)
 
+(setq mime-edit-split-message nil)
 ;; select correct email address when we _start_ writing a draft.
 (add-hook 'wl-mail-setup-hook 'wl-draft-config-exec)
 ;; don't apply the templates when sending the draft otherwise
