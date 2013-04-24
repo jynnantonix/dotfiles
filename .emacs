@@ -219,7 +219,7 @@
 ;; enable pkgbuild-mode for AUR pkgbuilds
 ;(require 'pkgbuild-mode)
 (setq auto-mode-alist
-      (cons '("PKGBUILD\\'" . pkgbuild-mode) auto-mode-alist))
+      (cons '("PKGBUILD\\'" . shell-script-mode) auto-mode-alist))
 
 ;; toggle window dedication
 (defun toggle-window-dedicated()
