@@ -217,7 +217,7 @@
               auto-mode-alist))
 
 ;; enable pkgbuild-mode for AUR pkgbuilds
-(require 'pkgbuild-mode)
+;(require 'pkgbuild-mode)
 (setq auto-mode-alist
       (cons '("PKGBUILD\\'" . pkgbuild-mode) auto-mode-alist))
 
