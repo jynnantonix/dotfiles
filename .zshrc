@@ -92,12 +92,17 @@ ssh-reagent() {
     eval `ssh-agent`;
 }
 
-# use mplayer to stream youtube videos
+# use mplayer to stream videos
 playstream() {
-		/usr/bin/mplayer -cache 262144 -cache-min 2 -cache-seek-min 5 -prefer-ipv4 \
-				$(/usr/bin/youtube-dl -g $1)
+		/usr/bin/mplayer $1
 }
 
+# play streaming videos
+youtube() {
+		playstream $(/usr/bin/youtube-dl -g $1)
+}
+
+#
 # set the brightness
 brightness() {
 		sudo /bin/sh -c "echo $1 > /sys/class/backlight/nvidia_backlight/brightness"
