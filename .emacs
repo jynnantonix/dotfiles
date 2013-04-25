@@ -203,6 +203,7 @@
 
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
+(add-hook 'text-mode-hook 'flyspell-mode)
 
 ;; Use shell-pop for running the shell
 (require 'shell-pop)
