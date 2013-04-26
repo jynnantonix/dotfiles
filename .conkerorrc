@@ -25,6 +25,12 @@ require("clicks-in-new-buffer.js");
 clicks_in_new_buffer_target = OPEN_NEW_BUFFER_BACKGROUND;
 clicks_in_new_buffer_button = 1; //  midclick links in new buffers with
 
+// use history in url completion
+// url_completion_use_history = true;
+
+// don't keep history for more than a day
+session_pref('browser.history_expire_days', 1);
+
 // load download buffers in the background in the current
 // window, instead of in new windows.
 download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
