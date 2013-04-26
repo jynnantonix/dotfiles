@@ -35,10 +35,13 @@ cwd.append("downloads");
 require("adblockplus.js");
 
 // some bookmarks
-define_webjump("efu",   "http://emacs-fu.blogspot.com");
-define_webjump("lkml",  "http://lkml.org");
-define_webjump("ew",    "http://emacswiki.org");
-define_webjump("yts",   "https://www.youtube.com/results?search_query=%s&aq=f");
+define_webjump("efu",      "http://emacs-fu.blogspot.com");
+define_webjump("lkml",     "https://lkml.org");
+define_webjump("ew",       "https://emacswiki.org");
+define_webjump("yts",      "https://www.youtube.com/results?search_query=%s&aq=f");
+define_webjump("aur",      "https://aur.archlinux.org/packages/?K=%s");
+define_webjump("arch",     "https://www.archlinux.org/packages/?q=%s");
+define_webjump("archwiki", "https://wiki.archlinux.org/index.php?search=%s");
 
 // use emacsclient as external editor
 editor_shell_command = "emacsclient -c";
