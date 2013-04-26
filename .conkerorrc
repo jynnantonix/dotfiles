@@ -13,6 +13,12 @@ require("reddit.js");
 require("youtube.js");
 require("youtube-player.js");
 
+// use noscript
+require("noscript.js");
+
+// emacs-style mode line
+require("mode-line.js");
+
 // give me new tabs; open buffers (tabs) in the background
 require("new-tabs.js");
 require("clicks-in-new-buffer.js");
