@@ -47,7 +47,7 @@ editor_shell_command = "emacsclient -c";
 view_source_use_external_editor = true;
 
 // use mplayer to watch videos
-external_content_handlers.set("video/*", "/usr/bin/st -e mplayer");
+external_content_handlers.set("video/*", "mplayer");
 
 // https everywhere options dialog
 if ('@eff.org/https-everywhere;1' in Cc) {
