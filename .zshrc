@@ -30,6 +30,8 @@ alias df='df -h'
 alias du='du -c -h -s'
 alias mkdir='mkdir -p -v'
 alias ping='ping -c 5'
+alias sysmon='dstat -cdnpmgs --top-bio --top-cpu'
+alias iftop='iftop -B -i wlp3s0'
 
 # sudo commands
 if [ $UID -ne 0 ]; then
