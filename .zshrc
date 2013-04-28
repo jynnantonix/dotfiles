@@ -26,12 +26,13 @@ alias ll='ls -l'
 alias lal='ls -al'
 alias grep='grep --color=auto'
 alias hgrep='history | grep '
+alias psgrep='ps aux | grep'
 alias df='df -h'
 alias du='du -c -h -s'
 alias mkdir='mkdir -p -v'
 alias ping='ping -c 5'
-alias sysmon='dstat -cdnpmgs --top-bio --top-cpu'
-alias iftop='iftop -B -i wlp3s0'
+alias dstat='dstat -cdnpmgs --top-bio --top-cpu'
+alias iftop='sudo iftop -B -i wlp3s0'
 
 # sudo commands
 if [ $UID -ne 0 ]; then
