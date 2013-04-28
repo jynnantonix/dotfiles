@@ -68,6 +68,13 @@
       ;; (see `comint-inhibit-carriage-motion'),.
       (set-process-filter proc 'comint-output-filter))))
 
+;; play a streaming url
+(defun stream-region ()
+	(interactive)
+	(if (use-region-p)
+			(play-stream (buffer-substring (region-beginning) (region-end)))
+		(message "No region selected...")))
+
 ;; play a stream through w3m
 (defun w3m-stream ()
   (interactive)
