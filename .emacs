@@ -270,8 +270,8 @@ by using nxml's indentation rules."
     (call-interactively 'scroll-down)))
 
 ;; Keybindings for λ and ƒ
-(global-set-key (kbd "M-l") (lambda () (interactive) (insert "\u03bb")))
-(global-set-key (kbd "M-f") (lambda () (interactive) (insert "\u0192")))
+(global-set-key (kbd "H-l") (lambda () (interactive) (insert "\u03bb")))
+(global-set-key (kbd "H-f") (lambda () (interactive) (insert "\u0192")))
 
 ;; scroll lines globally
 (global-set-key (kbd "M-n") 'scroll-up-one-line)
