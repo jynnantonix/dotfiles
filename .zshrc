@@ -124,6 +124,6 @@ prompt_status() {
     fi
 }
 
-PROMPT="%{$fg[white]%}┌─[%{$fg[yellow]%}%*%{$fg[white]%}][%{$fg[magenta]%}%l%{$fg[white]%}][%{$fg[cyan]%}%n%{$fg[white]%}][%{$fg[green]%}%~%{$fg[white]%}]
+PROMPT="%{$fg[white]%}┌─[%{$fg[yellow]%}%*%{$fg[white]%}][%{$fg[magenta]%}%m%{$fg[white]%}][%{$fg[cyan]%}%n%{$fg[white]%}][%{$fg[green]%}%~%{$fg[white]%}]
 └───╼ "
 RPROMPT="[%?]"
