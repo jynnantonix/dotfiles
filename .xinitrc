@@ -31,4 +31,4 @@ fi
 # exec ck-launch-session startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-exec dwm
+exec /usr/bin/dwm
