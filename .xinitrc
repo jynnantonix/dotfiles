@@ -21,6 +21,9 @@ fi
 # start terminal with tmux session
 /usr/bin/st -e /usr/bin/tmux &
 
+# set the keyboard repeat delay and rate
+/usr/bin/xset r rate 170 30 &
+
 # launch screensaver daemon
 #/usr/bin/xscreensaver -no-splash &
 
