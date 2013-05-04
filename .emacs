@@ -145,6 +145,13 @@
 (require 'bbdb-wl)
 (bbdb-wl-setup)
 
+;; use gnus for mailing lists
+(require 'gnus)
+(require 'gnus-demon)
+
+(setq gnus-select-method '(nntp "news.gmane.org"))
+(add-to-list 'gnus-secondary-select-methods '(nntp "news.gnus.org"))
+
 ;; use the latest org-mode
 (require 'org-install)
 
