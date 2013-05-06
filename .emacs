@@ -1,8 +1,9 @@
 ;; Add the local elisp subdirectory for my files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
-;; set my name
+;; set my name and email
 (setq user-full-name "Chirantan Ekbote")
+(setq user-mail-address "chirantan.ekbote@gmail.com")
 
 ;; Don't allow the startup screen to show
 (setq inhibit-startup-screen t)
