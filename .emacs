@@ -116,6 +116,11 @@
 (require 'flymake)
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; use auto-complete for completion
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
+(ac-config-default)
+
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
