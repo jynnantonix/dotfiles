@@ -243,8 +243,7 @@
                 ("\\.cmake\\'" . cmake-mode))
               auto-mode-alist))
 
-;; enable pkgbuild-mode for AUR pkgbuilds
-;(require 'pkgbuild-mode)
+;; enable shell-script-mode for AUR pkgbuilds
 (setq auto-mode-alist
       (cons '("PKGBUILD\\'" . shell-script-mode) auto-mode-alist))
 
