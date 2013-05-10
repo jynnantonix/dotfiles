@@ -220,6 +220,13 @@
 (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
 (add-hook 'write-file-hooks 'auto-update-file-header)
 
+;; create tags in directory
+(defun create-tags (dir-name)
+	"Create tags file."
+	(interactive "DDirectory: ")
+	(eshell-command
+	 (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name)))
+
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
 (add-hook 'text-mode-hook 'flyspell-mode)
