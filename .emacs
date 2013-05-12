@@ -155,6 +155,10 @@
 (require 'gnus)
 (require 'gnus-demon)
 
+;; set the appropriate mail and new directories
+(setq message-directory "~/.mail/gnus/mail")
+(setq gnus-directory "~/.mail/gnus/news")
+
 (setq gnus-select-method '(nntp "news.gmane.org"))
 (add-to-list 'gnus-secondary-select-methods '(nntp "news.gnus.org"))
 
