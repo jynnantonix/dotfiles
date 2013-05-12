@@ -121,6 +121,9 @@
 (add-to-list 'ac-dictionary-directories "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
 (ac-config-default)
 
+;; workaround for flyspell mode
+(ac-flyspell-workaround)
+
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
