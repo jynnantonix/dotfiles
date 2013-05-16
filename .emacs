@@ -165,6 +165,13 @@
 (setq gnus-select-method '(nntp "news.gmane.org"))
 (add-to-list 'gnus-secondary-select-methods '(nntp "news.gnus.org"))
 
+(setq gnus-message-archive-method
+			'(nnfolder "archive"
+								 (nnfolder-directory "~/.mail/gnus/mail")
+								 (nnfolder-active-file "~/.mail/gnus/mail/active")
+								 (nnfolder-get-new-mail nil)
+								 (nnfolder-inhibit-expiry t)))
+
 ;; use the latest org-mode
 (require 'org-install)
 
