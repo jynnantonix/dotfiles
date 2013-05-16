@@ -213,20 +213,7 @@
 (add-hook 'before-save-hook #'gofmt-before-save)
 
 ;; load xcscope for indexing files
-;; and ascope for fast searching
 (require 'xcscope)
-(require 'ascope)
-(define-key c-mode-base-map (kbd "C-c a I") 'ascope-init)
-(define-key c-mode-base-map (kbd "C-c a d") 'ascope-find-global-definition)
-(define-key c-mode-base-map (kbd "C-c a s") 'ascope-find-this-symbol)
-(define-key c-mode-base-map (kbd "C-c a t") 'ascope-find-this-text-string)
-(define-key c-mode-base-map (kbd "C-c a c") 'ascope-find-functions-calling-this-function)
-(define-key c-mode-base-map (kbd "C-c a C") 'ascope-find-called-functions)
-(define-key c-mode-base-map (kbd "C-c a e") 'ascope-find-this-egrep-pattern)
-(define-key c-mode-base-map (kbd "C-c a f") 'ascope-find-this-file)
-(define-key c-mode-base-map (kbd "C-c a i") 'ascope-find-files-including-file)
-(define-key c-mode-base-map (kbd "C-c a o") 'ascope-clear-overlay-arrow)
-(define-key c-mode-base-map (kbd "C-c a u") 'ascope-pop-mark)
 
 ;; use header2 to generate and update file headers
 (require 'header2)
