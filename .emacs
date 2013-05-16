@@ -215,6 +215,10 @@
 ;; load xcscope for indexing files
 (require 'xcscope)
 
+;; use dired-x with dired
+(require 'dired)
+(load "dired-x")
+
 ;; use header2 to generate and update file headers
 (require 'header2)
 (add-hook 'c-mode-common-hook 'auto-make-header)
