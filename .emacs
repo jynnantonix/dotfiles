@@ -113,6 +113,9 @@
 (require 'flymake)
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
+;; show whitespace with special characters
+(require 'whitespace)
+
 ;; use auto-complete for completion
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
@@ -202,6 +205,7 @@
 (require 'google-c-style)
 (add-hook 'c-mode-common-hook 'google-set-c-style)
 (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+(add-hook 'c-mode-common-hook 'whitespace-mode)
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
