@@ -94,8 +94,8 @@
      (define-key w3m-mode-map (kbd "p") 'w3m-stream)))
 
 ;; Load the color configuration file
-;(require 'my-colors)
 (require 'zenburn-theme)
+(load-theme 'zenburn t)
 
 ;; tetris!!
 (require 'tetris)
