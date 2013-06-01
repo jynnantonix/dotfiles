@@ -151,13 +151,6 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
-;; use wanderlust and bbdb for emails
-(require 'bbdb)
-(bbdb-initialize)
-(require 'wl)
-(require 'bbdb-wl)
-(bbdb-wl-setup)
-
 ;; use gnus for mailing lists
 (require 'gnus)
 (require 'gnus-demon)
