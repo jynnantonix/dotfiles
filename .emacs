@@ -156,24 +156,48 @@
 
 ;; use gnus for mailing lists
 (require 'gnus)
-(require 'gnus-demon)
 
 ;; set the appropriate mail and new directories
-(setq message-directory "~/.mail/gnus/mail")
-(setq gnus-directory "~/.mail/gnus/news")
+(setq-default message-directory "~/mail/gnus/mail")
+(setq-default gnus-directory "~/mail/gnus/news")
 
 (setq gnus-select-method '(nntp "news.gmane.org"))
 (add-to-list 'gnus-secondary-select-methods '(nntp "news.gnus.org"))
 
-(setq gnus-message-archive-method
-			'(nnfolder "archive"
-								 (nnfolder-directory "~/.mail/gnus/mail")
-								 (nnfolder-active-file "~/.mail/gnus/mail/active")
-								 (nnfolder-get-new-mail nil)
-								 (nnfolder-inhibit-expiry t)))
+;; render html with gnus w3m
+(setq mm-text-html-renderer 'gnus-w3m)
 
-;; use the latest org-mode
-(require 'org-install)
+;; use gnus-demon to get new mail
+(require 'gnus-demon)
+
+;; check for news every 10 minutes if emacs is idle for at least 10 seconds
+(setq gnus-demon-timestep 10)
+(gnus-demon-add-handler 'gnus-demon-scan-news 60 1)
+
+;; use mu4e for emails
+(require 'mu4e)
+(setq mu4e-maildir "~/mail")             ;; top-level mail directory
+(setq mu4e-get-mail-command "mbsync -a"  ;; use mbsync to sync mail ...
+			mu4e-update-interval 600)          ;; ... every 10 minutes
+
+;; use w3m to render html emails
+(setq mu4e-html2text-command "w3m -T text/html -dump")
+
+;; use gnus smtp for sending mails
+(require 'smtpmail)
+(setq message-send-mail-function 'smtpmail-send-it
+			smtpmail-stream-type 'starttls
+			smtpmail-default-smtp-server "smtp.gmail.com"
+			smtpmail-smtp-server "smtp.gmail.com"
+			smtpmail-smtp-service 587)
+
+;; delete messages sent through gmail
+(setq mu4e-sent-messages-behavior 'delete)
+(setq message-kill-buffer-on-exit t)
+
+;; other mu4e useful features
+(setq mu4e-view-show-images t
+			mu4e-view-image-max-width 800)
 
 ;; load gnuplot
 (require 'gnuplot)
