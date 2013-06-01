@@ -106,6 +106,7 @@
 (ido-mode t)
 
 ;; use ibuffer for more organized buffer management
+(require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; use flymake for on-th-fly syntax checking
