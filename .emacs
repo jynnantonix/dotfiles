@@ -16,6 +16,10 @@
 ;; turn on column numbers
 (column-number-mode t)
 
+;; always show matching parens
+(require 'paren)
+(show-paren-mode t)
+
 ;; set the default tab width to 2 spaces
 (setq default-tab-width 2)
 
