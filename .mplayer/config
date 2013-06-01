@@ -3,3 +3,4 @@ cache=51200
 cache-min=2
 cache-seek-min=2
 prefer-ipv4=yes
+heartbeat-cmd="xscreensaver-command -deactivate >&- 2>&- &"
