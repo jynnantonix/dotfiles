@@ -151,6 +151,9 @@
 (add-hook 'LaTeX-mode-hook 'flyspell-mode)
 (add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
 
+;; use the latest org-mode
+(require 'org-install)
+
 ;; use gnus for mailing lists
 (require 'gnus)
 (require 'gnus-demon)
