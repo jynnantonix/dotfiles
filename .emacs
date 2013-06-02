@@ -167,13 +167,6 @@
 ;; render html with gnus w3m
 (setq mm-text-html-renderer 'gnus-w3m)
 
-;; use gnus-demon to get new mail
-(require 'gnus-demon)
-
-;; check for news every 10 minutes if emacs is idle for at least 10 seconds
-(setq gnus-demon-timestep 10)
-(gnus-demon-add-handler 'gnus-demon-scan-news 60 1)
-
 ;; use mu4e for emails
 (require 'mu4e)
 (setq mu4e-maildir "~/mail")             ;; top-level mail directory
