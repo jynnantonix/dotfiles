@@ -31,6 +31,11 @@
 ;; always delete trailing whitespace before saving
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;; use an incognito chromium window to browse urls
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium"
+      browse-url-generic-args '("--new-window" "--incognito"))
+
 ;; use git and magit to handle repos
 (require 'git)
 (require 'magit)
@@ -49,9 +54,6 @@
 
 ;; Have w3m ready incase we need to do some browsing
 (require 'w3m-load)
-(setq w3m-use-cookies t)
-(setq browse-url-browser-function 'w3m-browse-url)
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 
 ;; play video stream using mplayer and youtube-dl
 (defun play-stream (url)
