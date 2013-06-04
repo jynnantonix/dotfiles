@@ -23,6 +23,9 @@
 ;; set the default tab width to 2 spaces
 (setq default-tab-width 2)
 
+;; use spaces instead of tabs by default
+(setq-default indent-tabs-mode nil)
+
 ;; interactively set a buffer-local tab width
 (defun set-tab-width (num)
 	(interactive "NTab Width: ")
