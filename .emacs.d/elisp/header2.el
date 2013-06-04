@@ -10,9 +10,9 @@
 ;; Copyright (C) 1988 Lynn Randolph Slater, Jr.
 ;; Created: Tue Aug  4 17:06:46 1987
 ;; Version: 21.0
-;; Last-Updated: Sat Apr 13 19:06:06 2013 (-0400)
+;; Last-Updated: Sat Apr 13 18:57:21 2013 (-0400)
 ;;           By: Chirantan Ekbote
-;;     Update #: 1841
+;;     Update #: 1839
 ;; URL: http://www.emacswiki.org/header2.el
 ;; Doc URL: http://emacswiki.org/AutomaticFileHeaders
 ;; Keywords: tools, docs, maint, abbrev, local
@@ -164,9 +164,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 ;;; Change Log:
-;; 13-Apr-2013    Chirantan Ekbote
-;;    Last-Updated: Sat Apr 13 18:57:21 2013 (-0400) #1839 (Chirantan Ekbote)
-;;    header-free-software: GPLv3 -> MIT
 ;;
 ;; 2012/08/23 dadams
 ;;     Added: header-doc-url.
