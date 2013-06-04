@@ -16,6 +16,9 @@
 ;; turn on column numbers
 (column-number-mode t)
 
+;; use M-y ad M-n for easy yes-or-no-p
+(require 'quick-yes)
+
 ;; always show matching parens
 (require 'paren)
 (show-paren-mode t)
