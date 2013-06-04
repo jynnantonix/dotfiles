@@ -3,7 +3,7 @@
 
 ;; set my name and email
 (setq user-full-name "Chirantan Ekbote")
-(setq user-mail-address "chirantan.ekbote@gmail.com")
+(setq user-mail-address "ekbotec@google.com")
 
 ;; Don't allow the startup screen to show
 (setq inhibit-startup-screen t)
@@ -16,38 +16,27 @@
 ;; turn on column numbers
 (column-number-mode t)
 
-;; use M-y ad M-n for easy yes-or-no-p
-(require 'quick-yes)
-
 ;; always show matching parens
 (require 'paren)
 (show-paren-mode t)
 
 ;; set the default tab width to 2 spaces
-(setq default-tab-width 2)
-
-;; use spaces instead of tabs by default
-(setq-default indent-tabs-mode nil)
+;(setq default-tab-width 8)
 
 ;; interactively set a buffer-local tab width
 (defun set-tab-width (num)
-	(interactive "NTab Width: ")
-	(setq tab-width num))
+  (interactive "NTab Width: ")
+  (setq tab-width num))
 
 ;; always delete trailing whitespace before saving
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;; use an incognito chromium window to browse urls
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium"
-      browse-url-generic-args '("--new-window" "--incognito"))
-
-;; use git and magit to handle repos
-(require 'git)
-(require 'magit)
-
 ;; use erc for IRC
 (require 'my-erc)
+
+;; use chrome for browsing urls
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "google-chrome")
 
 ;; Use continuous mode when using DocView and mimic emacs scrolling
 (require 'doc-view)
@@ -57,49 +46,6 @@
 
 ;; don't ask when reloading pdfs
 (add-to-list 'revert-without-query ".*\.pdf")
-
-;; Have w3m ready incase we need to do some browsing
-(require 'w3m-load)
-
-;; play video stream using mplayer and youtube-dl
-(defun play-stream (url)
-  (interactive "sURL: ")
-  (let ((buffer (get-buffer-create "*stream-output*")))
-    (with-current-buffer buffer
-      (setq buffer-read-only nil)
-      ;; Setting buffer-read-only to nil doesn't suffice
-      ;; if some text has a non-nil read-only property,
-      ;; which comint sometimes adds for prompts.
-      (let ((inhibit-read-only t))
-        (erase-buffer))
-      (setq proc (start-process-shell-command "streaming" buffer
-    (concat "mplayer $(youtube-dl -g " (shell-quote-argument url) ")" )))
-      (setq mode-line-process '(":%s"))
-      (require 'shell) (shell-mode)
-      (set-process-sentinel proc 'shell-command-sentinel)
-      ;; Use the comint filter for proper handling of carriage motion
-      ;; (see `comint-inhibit-carriage-motion'),.
-      (set-process-filter proc 'comint-output-filter))))
-
-;; play a streaming url
-(defun stream-region ()
-	(interactive)
-	(if (use-region-p)
-			(play-stream (buffer-substring (region-beginning) (region-end)))
-		(message "No region selected...")))
-
-;; play a stream through w3m
-(defun w3m-stream ()
-  (interactive)
-  (let ((url (w3m-anchor)))
-    (play-stream url)))
-
-(eval-after-load "w3m"
-  '(progn
-     ;; Overwrite copy-buffer because C-c C-t does the same thing
-     (define-key w3m-mode-map (kbd "M-n") 'scroll-up-one-line)
-     ;; Use p to play streaming urls
-     (define-key w3m-mode-map (kbd "p") 'w3m-stream)))
 
 ;; Load the color configuration file
 (require 'zenburn-theme)
@@ -117,129 +63,41 @@
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; use flymake for on-th-fly syntax checking
-(require 'flymake)
-;(add-hook 'find-file-hook 'flymake-find-file-hook)
-
 ;; show whitespace with special characters
 (require 'whitespace)
+(setq whitespace-style '(face
+                         tabs
+                         spaces
+                         trailing
+                         space-before-tab
+                         newline
+                         indentation
+                         empty
+                         space-after-tab
+                         space-mark
+                         tab-mark
+                         newline-mark))
+
 
 ;; use auto-complete for completion
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
+(add-to-list 'ac-dictionary-directories
+             "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
 (ac-config-default)
 
 ;; use completion mode for anything auto-complete cannot handle
 (require 'completion)
 (dynamic-completion-mode)
 
-;; workaround for flyspell mode
-(ac-flyspell-workaround)
-
-;; use AucTex for LaTeX files
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-
-;; make AucTex ask for the master file
-(setq-default TeX-master nil)
-
-;; default to creating pdf not dvi
-(setq-default TeX-PDF-mode t)
-
-;; use reftex with auctex
-(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
-(setq reftex-plug-into-AUCTeX t)
-(add-hook 'reftex-load-hook 'imenu-add-menubar-index)
-(add-hook 'reftex-mode-hook 'imenu-add-menubar-index)
-
-;; use auto-fill for latex
-(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
-
-;; flyspell and math modes
-(add-hook 'LaTeX-mode-hook 'flyspell-mode)
-(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
-
-;; use the latest org-mode
-(require 'org-install)
-
-;; use gnus for mailing lists
-(require 'gnus)
-
-;; set the appropriate mail and new directories
-(setq-default message-directory "~/mail/gnus/mail")
-(setq-default gnus-directory "~/mail/gnus/news")
-
-(setq gnus-select-method '(nntp "news.gmane.org"))
-(add-to-list 'gnus-secondary-select-methods '(nntp "news.gnus.org"))
-
-;; render html with gnus w3m
-(setq mm-text-html-renderer 'gnus-w3m)
-
-;; use mu4e for emails
-(require 'mu4e)
-(setq mu4e-maildir "~/mail")             ;; top-level mail directory
-(setq mu4e-get-mail-command "mbsync -a"  ;; use mbsync to sync mail ...
-			mu4e-update-interval 600)          ;; ... every 10 minutes
-
-(add-hook 'mu4e-index-updated-hook
-					(lambda () (shell-command "notify-send 'Mail index updated'")))
-
-;; use w3m to render html emails
-(setq mu4e-html2text-command "w3m -T text/html -dump")
-
-;; use gnus smtp for sending mails
-(require 'smtpmail)
-(setq message-send-mail-function 'smtpmail-send-it
-			smtpmail-stream-type 'starttls
-			smtpmail-default-smtp-server "smtp.gmail.com"
-			smtpmail-smtp-server "smtp.gmail.com"
-			smtpmail-smtp-service 587)
-
-;; delete messages sent through gmail
-(setq mu4e-sent-messages-behavior 'delete)
-(setq message-kill-buffer-on-exit t)
-
-;; other mu4e useful features
-(setq mu4e-view-show-images t
-			mu4e-view-image-max-width 800)
-
-;; load gnuplot
-(require 'gnuplot)
-(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
-
-;; use org-babel-gnuplot to create graphs from org
-(require 'ob-gnuplot)
-
-;; set the agenda to look in the org folder
-(setq org-agenda-files '("~/.emacs.d/org/"))
-
-;; emms for multimedia files
-(require 'emms-setup)
-(emms-standard)
-(emms-default-players)
-
-;; volume control and playback through emms
-(require 'emms-volume)
-(global-set-key (kbd "<XF86AudioNext>") 'emms-next)
-(global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
-(global-set-key (kbd "<XF86AudioPlay>") 'emms-pause)
-
 ;; use google's code style for C/C++
 (require 'cc-mode)
-(require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+;(load-file "/google/src/head/depot/eng/elisp/google.el")
+
 (add-hook 'c-mode-common-hook 'whitespace-mode)
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
       (cons '("\\.cu$" . c-mode) auto-mode-alist))
-
-;; use go mode for Go files
-(require 'go-mode-load)
-
-;; always run gofmt before saving
-(add-hook 'before-save-hook #'gofmt-before-save)
 
 ;; load xcscope for indexing files
 (require 'xcscope)
@@ -248,18 +106,12 @@
 (require 'dired)
 (load "dired-x")
 
-;; use header2 to generate and update file headers
-(require 'header2)
-(add-hook 'c-mode-common-hook 'auto-make-header)
-(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
-(add-hook 'write-file-hooks 'auto-update-file-header)
-
 ;; create tags in directory
 (defun create-tags (dir-name)
-	"Create tags file."
-	(interactive "DDirectory: ")
-	(eshell-command
-	 (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name)))
+  "Create tags file."
+  (interactive "DDirectory: ")
+  (eshell-command
+   (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name)))
 
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
@@ -269,17 +121,6 @@
 (require 'shell-pop)
 (shell-pop-set-internal-mode "eshell")
 (global-set-key (kbd "<f6>") 'shell-pop)
-
-;; enable cmake-mode for cmake files
-(require 'cmake-mode)
-(setq auto-mode-alist
-      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                ("\\.cmake\\'" . cmake-mode))
-              auto-mode-alist))
-
-;; enable shell-script-mode for AUR pkgbuilds
-(setq auto-mode-alist
-      (cons '("PKGBUILD\\'" . shell-script-mode) auto-mode-alist))
 
 ;; toggle window dedication
 (defun toggle-window-dedicated()
@@ -339,20 +180,27 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "<C-backspace>") 'kill-region)
 
-;; easy commands for window switching
-(global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
-(global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
-(global-set-key (kbd "C-c <up>") 'windmove-up)              ; move to upper window
-(global-set-key (kbd "C-c <down>")  'windmove-down)         ; move to lower window
-(global-set-key (kbd "C-c <C-left>") 'windmove-left)        ; move to left window
-(global-set-key (kbd "C-c <C-right>") 'windmove-right)      ; move to right window
-(global-set-key (kbd "C-c <C-up>") 'windmove-up)            ; move to upper window
-(global-set-key (kbd "C-c <C-down>")  'windmove-down)       ; move to lower window
+;; use buffer-move to switch buffers across windows
+(require 'buffer-move)
+(global-set-key (kbd "<H-S-left>") 'buf-move-left)
+(global-set-key (kbd "<H-S-right>") 'buf-move-right)
+(global-set-key (kbd "<H-S-up>") 'buf-move-up)
+(global-set-key (kbd "<H-S-down>") 'buf-move-down)
 
-(global-set-key (kbd "<H-left>") 'windmove-left)            ; move to left window
-(global-set-key (kbd "<H-right>") 'windmove-right)          ; move to right window
-(global-set-key (kbd "<H-up>") 'windmove-up)                ; move to upper window
-(global-set-key (kbd "<H-down>")  'windmove-down)           ; move to lower window
+;; easy commands for window switching
+(global-set-key (kbd "C-c <left>") 'windmove-left)       ; move to left window
+(global-set-key (kbd "C-c <right>") 'windmove-right)     ; move to right window
+(global-set-key (kbd "C-c <up>") 'windmove-up)           ; move to upper window
+(global-set-key (kbd "C-c <down>")  'windmove-down)      ; move to lower window
+(global-set-key (kbd "C-c <C-left>") 'windmove-left)     ; move to left window
+(global-set-key (kbd "C-c <C-right>") 'windmove-right)   ; move to right window
+(global-set-key (kbd "C-c <C-up>") 'windmove-up)         ; move to upper window
+(global-set-key (kbd "C-c <C-down>")  'windmove-down)    ; move to lower window
+
+(global-set-key (kbd "<H-left>") 'windmove-left)         ; move to left window
+(global-set-key (kbd "<H-right>") 'windmove-right)       ; move to right window
+(global-set-key (kbd "<H-up>") 'windmove-up)             ; move to upper window
+(global-set-key (kbd "<H-down>")  'windmove-down)        ; move to lower window
 
 ;; switch keybindings for regex and non-regex search
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
@@ -374,3 +222,7 @@ by using nxml's indentation rules."
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'erase-buffer 'disabled nil)
+
+;; Local Variables:
+;; indent-tabs-mode: nil
+;; End:
