@@ -173,6 +173,9 @@
 (setq mu4e-get-mail-command "mbsync -a"  ;; use mbsync to sync mail ...
 			mu4e-update-interval 600)          ;; ... every 10 minutes
 
+(add-hook 'mu4e-index-updated-hook
+					(lambda () (shell-command "notify-send 'Mail index updated'")))
+
 ;; use w3m to render html emails
 (setq mu4e-html2text-command "w3m -T text/html -dump")
 
