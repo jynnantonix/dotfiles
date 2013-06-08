@@ -114,10 +114,13 @@ it blindly to other people's files can cause enormously messy diffs!"
 ;; set the agenda to look in the org folder
 (require 'org-install)
 (setq org-agenda-files '("~/.emacs.d/org/"))
-(setq org-agenda-start-on-weekday nil
-      org-agenda-start-with-log-mode t
-      org-agenda-start-with-follow-mode t
-      org-agenda-start-with-clockreport-mode t)
+(setq org-agenda-start-on-weekday nil          ;; start the agenda on the current day
+      org-agenda-start-with-log-mode t         ;; show the daily log
+      org-agenda-start-with-follow-mode t      ;; follow the relevant entries
+      org-agenda-start-with-clockreport-mode t);; show the clock for the day
+
+;; use native syntax highlighting for src blocks
+(setq org-src-fontify-natively t)
 
 
 ;; use ibuffer for more organized buffer management
@@ -248,6 +251,10 @@ by using nxml's indentation rules."
 (global-set-key (kbd "<H-S-right>") 'buf-move-right)
 (global-set-key (kbd "<H-S-up>") 'buf-move-up)
 (global-set-key (kbd "<H-S-down>") 'buf-move-down)
+(global-set-key (kbd "C-c m <left>") 'buf-move-left)
+(global-set-key (kbd "C-c m <right>") 'buf-move-right)
+(global-set-key (kbd "C-c m <up>") 'buf-move-up)
+(global-set-key (kbd "C-c m <down>") 'buf-move-down)
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)       ; move to left window
@@ -284,6 +291,7 @@ by using nxml's indentation rules."
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'erase-buffer 'disabled nil)
+(put 'set-goal-column 'disabled nil)
 
 ;; Local Variables:
 ;; indent-tabs-mode: nil

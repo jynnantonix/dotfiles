@@ -15,8 +15,7 @@
 ;; name can be be a bit different, which would screw up autoconnect
 (erc-autojoin-mode t)
 (setq erc-autojoin-channels-alist '((".*\\.freenode.net" "#archlinux"
-                                     "#archlinux-pacman" "#emacs")
-                                    ("localhost" "&bitlbee")))
+                                     "#archlinux-pacman" "#emacs")))
 
 ;; check channels
 (erc-track-mode t)
