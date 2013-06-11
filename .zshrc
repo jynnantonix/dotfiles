@@ -13,9 +13,6 @@ autoload -U compinit
 compinit
 # End of lines added by compinstall
 
-# get a random saying for the day
-command fortune | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
-
 # modified commands
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -40,9 +37,6 @@ if [ $UID -ne 0 ]; then
     alias scat='sudo cat'
     alias snano='sudo nano'
     alias semacs='sudo emacs'
-    alias reboot='sudo systemctl reboot'
-    alias poweroff='sudo systemctl poweroff'
-    alias halt='sudo systemctl halt'
 fi
 
 # safety features
@@ -54,38 +48,23 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
-# pacman commands
-alias pacadd='pacman -S'
-alias pacupgrade='pacman -Syu'    # full system upgrade
-alias pacupdate='pacman -Syy'     # sync and update repositories
-alias pacsearch='pacman -Ss'      # search
-alias pacinfo='pacman -Si'
-alias pacremove='pacman -Rs'
-alias pacquery='pacman -Qs'
-alias paclocal='pacman -Qi'
-alias pacaur='pacman -Qqm'
-alias pacinstalled='pacman -Qe'
-alias pacexplicitdeps='comm -23 <( sort <( pacman -Qe) ) <(sort <( pacman -Qt ) )'
-alias pacleaves='pacman -Qt'
-alias pacorphans='pacman -Qdt'
-alias pacowner='pacman -Qo'
-alias pacfiles='pacman -Ql'
-alias pacclean='pacman -Sc'
-alias pacmake='makepkg -sci'      # make and install AUR package
+# screen locking because for some reason it doesn't work automagically
+alias slock='gnome-screensaver-command -l'
 
-# cower commands
-alias cower='cower -c'
-alias cowget='cower -dd'
-alias cowupdate='cower -u'
-alias cowsearch='cower -s'
-alias cowinfo='cower -i'
+# take advantage of the 32 cores
+alias make='make -j40'
+
+# set the correct umask for cros buiding
+umask 022
+
+# add depot_tools to path
+export PATH="$PATH:/usr/local/google/home/ekbotec/Projects/depot_tools"
 
 # connect to an already running ssh agent
 ssh-reagent() {
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK="${agent}";
-				ssh-add -l 2>&1 > /dev/null
-        if [[ $? -eq 0 ]]; then
+	if [[ -n $(ssh-add -l 2>/dev/null) ]]; then
             echo "Found working SSH Agent" ;
             ssh-add -l ;
             return
@@ -94,20 +73,6 @@ ssh-reagent() {
     echo "Cannot find working SSH Agent. Creating new agent";
     eval `ssh-agent`;
 }
-
-# use mplayer to stream videos
-playstream() {
-		/usr/bin/mplayer $(/usr/bin/youtube-dl -g $1)
-}
-
-# set the brightness
-brightness() {
-		sudo /bin/sh -c "echo $1 > /sys/class/backlight/nvidia_backlight/brightness"
-		sudo /bin/sh -c "echo $(((1024 - $1) / 4)) > /sys/class/leds/smc::kbd_backlight/brightness"
-}
-
-# pkgfile command not found hook
-source /usr/share/doc/pkgfile/command-not-found.zsh
 
 # Configure the prompt
 autoload -U colors
