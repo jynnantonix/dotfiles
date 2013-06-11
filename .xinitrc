@@ -16,7 +16,7 @@ if [ -f "$HOME"/.Xmodmap ]; then
 fi
 
 # start emacs daemon
-/usr/bin/emacs --daemon &
+/usr/local/bin/emacs --daemon &
 
 # start terminal with tmux session
 /usr/bin/st -e /usr/bin/tmux &
@@ -25,7 +25,7 @@ fi
 /usr/bin/xset r rate 170 30 &
 
 # launch screensaver daemon
-/usr/bin/xscreensaver -no-splash &
+#/usr/bin/xscreensaver -no-splash &
 
 # exec gnome-session
 # exec ck-launch-session startkde

@@ -140,7 +140,7 @@ it blindly to other people's files can cause enormously messy diffs!"
 ;; use auto-complete for completion
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories
-             "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
+             "/usr/local/share/emacs/site-lisp/auto-complete/ac-dict")
 (ac-config-default)
 
 ;; use completion mode for anything auto-complete cannot handle
@@ -150,6 +150,30 @@ it blindly to other people's files can cause enormously messy diffs!"
 ;; use google's code style for C/C++
 (require 'cc-mode)
 ;(load-file "/google/src/head/depot/eng/elisp/google.el")
+
+;; linux kernel coding style
+(defun c-lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+         (column (c-langelem-2nd-pos c-syntactic-element))
+         (offset (- (1+ column) anchor))
+         (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+;; Add kernel style
+(c-add-style
+ "linux-tabs-only"
+ '("linux" (c-offsets-alist
+            (arglist-cont-nonempty
+             c-lineup-gcc-asm-reg
+             c-lineup-arglist-tabs-only))))
+
+(add-hook 'c-mode-hook
+          ; set kernel coding style
+          (lambda ()
+            (setq indent-tabs-mode t)
+            (c-set-style "linux-tabs-only")))
 
 (require 'whitespace)
 (add-hook 'c-mode-common-hook 'whitespace-mode)
@@ -239,6 +263,11 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "<C-backspace>") 'kill-region)
 
+;; more accessible buffer switching
+(global-set-key (kbd "C-x ,") 'previous-buffer)
+(global-set-key (kbd "C-x .") 'next-buffer)
+(global-set-key (kbd "C-x /") 'set-fill-prefix)           ; use to be on C-x .
+
 ;; use buffer-move to switch buffers across windows
 (require 'buffer-move)
 (global-set-key (kbd "<H-S-left>") 'buf-move-left)
@@ -255,10 +284,10 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-c <right>") 'windmove-right)     ; move to right window
 (global-set-key (kbd "C-c <up>") 'windmove-up)           ; move to upper window
 (global-set-key (kbd "C-c <down>")  'windmove-down)      ; move to lower window
-(global-set-key (kbd "C-c <C-left>") 'windmove-left)     ; move to left window
-(global-set-key (kbd "C-c <C-right>") 'windmove-right)   ; move to right window
-(global-set-key (kbd "C-c <C-up>") 'windmove-up)         ; move to upper window
-(global-set-key (kbd "C-c <C-down>")  'windmove-down)    ; move to lower window
+(global-set-key (kbd "C-c h") 'windmove-left)            ; move to left window
+(global-set-key (kbd "C-c l") 'windmove-right)           ; move to right window
+(global-set-key (kbd "C-c k") 'windmove-up)              ; move to upper window
+(global-set-key (kbd "C-c j")  'windmove-down)           ; move to lower window
 
 (global-set-key (kbd "<H-left>") 'windmove-left)         ; move to left window
 (global-set-key (kbd "<H-right>") 'windmove-right)       ; move to right window
@@ -279,8 +308,12 @@ by using nxml's indentation rules."
 (global-set-key (kbd "<f7>") 'compile)
 (global-set-key (kbd "<f8>") 'gdb)
 
-;; use C-. to repeat commands
+;; use C-. to repeat commands, only works with X windows
 (global-set-key (kbd "C-.") 'repeat)
+
+;; Use M-. when we are not in an X window, swap with find-tag
+(global-set-key (kbd "M-.") 'repeat)
+(global-set-key (kbd "C-x z") 'find-tag)
 
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)

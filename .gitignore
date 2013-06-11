@@ -44,3 +44,5 @@
 /.repoconfig
 /.emacs.d/url
 /.authinfo
+*~
+
