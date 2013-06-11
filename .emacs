@@ -1,3 +1,8 @@
+;; Add system site-lisp to load-path
+(add-to-list 'load-path "/usr/share/emacs/site-lisp")
+(let ((default-directory "/usr/share/emacs/site-lisp"))
+  (normal-top-level-add-subdirs-to-load-path))
+
 ;; Add the local elisp subdirectory for my files
 (add-to-list 'load-path "~/.emacs.d/elisp/")
 
@@ -40,7 +45,6 @@
   extraneous whitespace on a per-file basis.")
 (make-variable-buffer-local 'skip-whitespace-check)
 
-
 (defun buffer-whitespace-normalized-p ()
   "Returns non-nil if the current buffer contains no tab characters
 nor trailing whitespace.  This predicate is useful for determining
@@ -82,15 +86,6 @@ it blindly to other people's files can cause enormously messy diffs!"
 (setq browse-url-browser-function 'browse-url-generic
       browse-url-generic-program "google-chrome")
 
-;; Use continuous mode when using DocView and mimic emacs scrolling
-(require 'doc-view)
-(setq doc-view-continuous t)
-(define-key doc-view-mode-map (kbd "C-v") 'doc-view-scroll-up-or-next-page)
-(define-key doc-view-mode-map (kbd "M-v") 'doc-view-scroll-down-or-previous-page)
-
-;; don't ask when reloading pdfs
-(add-to-list 'revert-without-query ".*\.pdf")
-
 ;; Load the color configuration file
 (require 'zenburn-theme)
 (load-theme 'zenburn t)
@@ -121,7 +116,6 @@ it blindly to other people's files can cause enormously messy diffs!"
 
 ;; use native syntax highlighting for src blocks
 (setq org-src-fontify-natively t)
-
 
 ;; use ibuffer for more organized buffer management
 (require 'ibuffer)
