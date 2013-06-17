@@ -79,6 +79,9 @@ it blindly to other people's files can cause enormously messy diffs!"
 (add-hook 'find-file-hook 'whitespace-check-find-file-hook)
 (add-hook 'before-save-hook 'maybe-delete-trailing-whitespace)
 
+;; easy boilerplate headers
+(require 'header2)
+
 ;; use erc for IRC
 (require 'my-erc)
 
@@ -274,10 +277,10 @@ by using nxml's indentation rules."
 (global-set-key (kbd "<H-S-right>") 'buf-move-right)
 (global-set-key (kbd "<H-S-up>") 'buf-move-up)
 (global-set-key (kbd "<H-S-down>") 'buf-move-down)
-(global-set-key (kbd "C-c m <left>") 'buf-move-left)
-(global-set-key (kbd "C-c m <right>") 'buf-move-right)
-(global-set-key (kbd "C-c m <up>") 'buf-move-up)
-(global-set-key (kbd "C-c m <down>") 'buf-move-down)
+(global-set-key (kbd "C-c m h") 'buf-move-left)
+(global-set-key (kbd "C-c m l") 'buf-move-right)
+(global-set-key (kbd "C-c m k>") 'buf-move-up)
+(global-set-key (kbd "C-c m j") 'buf-move-down)
 
 ;; easy commands for window switching
 (global-set-key (kbd "C-c <left>") 'windmove-left)       ; move to left window
