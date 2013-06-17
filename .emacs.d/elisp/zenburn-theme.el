@@ -436,7 +436,7 @@ Also bind `class' to ((class color) (min-colors 89))."
 ;;;;; ido-mode
    `(ido-first-match ((t (:foreground ,zenburn-yellow :weight bold))))
    `(ido-only-match ((t (:foreground ,zenburn-orange :weight bold))))
-   `(ido-subdir ((t (:foreground ,zenburn-yellow))))
+   `(ido-subdir ((t (:foreground ,zenburn-blue))))
 ;;;;; js2-mode
    `(js2-warning-face ((t (:underline ,zenburn-orange))))
    `(js2-error-face ((t (:foreground ,zenburn-red :weight bold))))
