@@ -21,6 +21,10 @@
 ;; turn on column numbers
 (column-number-mode t)
 
+;; Use popups for temporary buffers
+(require 'popwin)
+(popwin-mode 1)
+
 ;; use M-y and M-n to answer yes-or-no-p questions
 (require 'quick-yes)
 
@@ -120,16 +124,40 @@ it blindly to other people's files can cause enormously messy diffs!"
 ;; use native syntax highlighting for src blocks
 (setq org-src-fontify-natively t)
 
+;; global org-mode keybindings
+(global-set-key (kbd "C-c a") 'org-agenda)
+
 ;; use ibuffer for more organized buffer management
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; show whitespace with special characters
+;; use auto-complete for completion
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories
+             "/usr/local/share/emacs/site-lisp/auto-complete/ac-dict")
+(ac-config-default)
+
+;; make flyspell and auto-complete play well together
+(ac-flyspell-workaround)
+
+;; use completion mode for anything auto-complete cannot handle
+(require 'completion)
+(dynamic-completion-mode)
+
+;; use whitespace
 (require 'whitespace)
+(add-hook 'c-mode-common-hook 'whitespace-mode)
+(add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
+(add-hook 'text-mode-hook 'whitespace-mode)
+(add-hook 'asm-mode-hook 'whitespace-mode)
+(add-hook 'lisp-mode-hook 'whitespace-mode)
+
+;; show whitespace with special characters
 (setq whitespace-style '(face
                          tabs
                          spaces
                          trailing
+                         lines-tail
                          space-before-tab
                          newline
                          indentation
@@ -139,20 +167,11 @@ it blindly to other people's files can cause enormously messy diffs!"
                          tab-mark
                          newline-mark))
 
+;; use magit for emacs+git awesomeness
+(require 'magit)
+(setq magit-commit-signoff t)
 
-;; use auto-complete for completion
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories
-             "/usr/local/share/emacs/site-lisp/auto-complete/ac-dict")
-(ac-config-default)
-
-;; use completion mode for anything auto-complete cannot handle
-(require 'completion)
-(dynamic-completion-mode)
-
-;; use google's code style for C/C++
 (require 'cc-mode)
-;(load-file "/google/src/head/depot/eng/elisp/google.el")
 
 ;; linux kernel coding style
 (defun c-lineup-arglist-tabs-only (ignored)
@@ -178,8 +197,9 @@ it blindly to other people's files can cause enormously messy diffs!"
             (setq indent-tabs-mode t)
             (c-set-style "linux-tabs-only")))
 
-(require 'whitespace)
-(add-hook 'c-mode-common-hook 'whitespace-mode)
+;; use flyspell for comments in programming modes
+;(add-hook 'c-mode-common-hook 'flyspell-prog-mode)
+;(add-hook 'emacs-lisp-mode-hook 'flyspell-prog-mode)
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
@@ -283,6 +303,8 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-c m j") 'buf-move-down)
 
 ;; easy commands for window switching
+(require 'windmove)
+(setq windmove-wrap-around t)                            ; wrap around the frame
 (global-set-key (kbd "C-c <left>") 'windmove-left)       ; move to left window
 (global-set-key (kbd "C-c <right>") 'windmove-right)     ; move to right window
 (global-set-key (kbd "C-c <up>") 'windmove-up)           ; move to upper window
