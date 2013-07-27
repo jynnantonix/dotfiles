@@ -84,8 +84,7 @@ alias cowinfo='cower -i'
 ssh-reagent() {
     for agent in /tmp/ssh-*/agent.*; do
         export SSH_AUTH_SOCK="${agent}";
-				ssh-add -l 2>&1 > /dev/null
-        if [[ $? -eq 0 ]]; then
+        if [[ -n $(ssh-add -l 2>/dev/null) ]]; then
             echo "Found working SSH Agent" ;
             ssh-add -l ;
             return
