@@ -96,13 +96,13 @@ ssh-reagent() {
 
 # use mplayer to stream videos
 playstream() {
-		/usr/bin/mplayer $(/usr/bin/youtube-dl -g $1)
+    /usr/bin/mplayer $(/usr/bin/youtube-dl -g $1)
 }
 
 # set the brightness
 brightness() {
-		sudo /bin/sh -c "echo $1 > /sys/class/backlight/nvidia_backlight/brightness"
-		sudo /bin/sh -c "echo $(((1024 - $1) / 4)) > /sys/class/leds/smc::kbd_backlight/brightness"
+    sudo /bin/sh -c "echo $1 > /sys/class/backlight/nvidia_backlight/brightness"
+    sudo /bin/sh -c "echo $(((1024 - $1) / 4)) > /sys/class/leds/smc::kbd_backlight/brightness"
 }
 
 # pkgfile command not found hook
@@ -117,9 +117,9 @@ promptinit
 prompt_status() {
     RETVAL=$?
     if [ $RETVAL -ne 0 ]; then
-	echo -n ":( $RETVAL"
+        echo -n ":( $RETVAL"
     else
-	echo -n ":) $RETVAL"
+        echo -n ":) $RETVAL"
     fi
 }
 
