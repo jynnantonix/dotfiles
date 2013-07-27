@@ -111,7 +111,7 @@
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; use flymake for on-th-fly syntax checking
-(require 'flymake)
+;(require 'flymake)
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
 ;; show whitespace with special characters
@@ -199,11 +199,11 @@
       mu4e-view-image-max-width 800)
 
 ;; load gnuplot
-(require 'gnuplot)
-(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
+;(require 'gnuplot)
+;(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
 
 ;; use org-babel-gnuplot to create graphs from org
-(require 'ob-gnuplot)
+;(require 'ob-gnuplot)
 
 ;; set the agenda to look in the org folder
 (setq org-agenda-files '("~/.emacs.d/org/"))
