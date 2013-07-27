@@ -1,8 +1,8 @@
 ;; show at least the last three levels of a group's name
 (setq gnus-group-uncollapsed-levels 3)
 
-(require 'gnus-desktop-notify)
-(gnus-desktop-notify-mode)
+;(require 'gnus-desktop-notify)
+;(gnus-desktop-notify-mode)
 
 ;; use gnus-demon to get new mail
 (require 'gnus-demon)
