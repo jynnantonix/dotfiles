@@ -369,3 +369,4 @@ by using nxml's indentation rules."
 ;; allow dired to open directories in the same buffer
 (put 'dired-find-alternate-file 'disabled nil)
 (put 'erase-buffer 'disabled nil)
+(put 'set-goal-column 'disabled nil)
