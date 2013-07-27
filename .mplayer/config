@@ -4,3 +4,6 @@ cache-min=2
 cache-seek-min=2
 prefer-ipv4=yes
 heartbeat-cmd="xscreensaver-command -deactivate >&- 2>&- &"
+vo=vdpau,
+vc=ffh264vdpau,ffmpeg12vdpau,ffodivxvdpau,ffwmv3vdpau,ffvc1vdpau,
+fs=yes
