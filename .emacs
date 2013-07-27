@@ -16,6 +16,10 @@
 ;; turn on column numbers
 (column-number-mode t)
 
+;; use popup windows for temporary buffers
+(require 'popwin)
+(popwin-mode 1)
+
 ;; use M-y ad M-n for easy yes-or-no-p
 (require 'quick-yes)
 
