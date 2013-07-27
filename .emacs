@@ -334,20 +334,22 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "<C-backspace>") 'kill-region)
 
-;; easy commands for window switching
-(global-set-key (kbd "C-c <left>") 'windmove-left)          ; move to left window
-(global-set-key (kbd "C-c <right>") 'windmove-right)        ; move to right window
-(global-set-key (kbd "C-c <up>") 'windmove-up)              ; move to upper window
-(global-set-key (kbd "C-c <down>")  'windmove-down)         ; move to lower window
-(global-set-key (kbd "C-c <C-left>") 'windmove-left)        ; move to left window
-(global-set-key (kbd "C-c <C-right>") 'windmove-right)      ; move to right window
-(global-set-key (kbd "C-c <C-up>") 'windmove-up)            ; move to upper window
-(global-set-key (kbd "C-c <C-down>")  'windmove-down)       ; move to lower window
+;; swap adjacent buffers without C-x b
+(require 'buffer-move)
+(global-set-key (kbd "C-c m h") 'buf-move-left)       ; swap with left buffer
+(global-set-key (kbd "C-c m l") 'buf-move-right)      ; swap wth right buffer
+(global-set-key (kbd "C-c m k") 'buf-move-up)         ; swap with top buffer
+(global-set-key (kbd "C-c m j") 'buf-move-down)       ; swap with bottom buffer
 
-(global-set-key (kbd "<H-left>") 'windmove-left)            ; move to left window
-(global-set-key (kbd "<H-right>") 'windmove-right)          ; move to right window
-(global-set-key (kbd "<H-up>") 'windmove-up)                ; move to upper window
-(global-set-key (kbd "<H-down>")  'windmove-down)           ; move to lower window
+;; easy commands for window switching
+(global-set-key (kbd "C-c <left>") 'windmove-left)    ; move to left window
+(global-set-key (kbd "C-c <right>") 'windmove-right)  ; move to right window
+(global-set-key (kbd "C-c <up>") 'windmove-up)        ; move to upper window
+(global-set-key (kbd "C-c <down>")  'windmove-down)   ; move to lower window
+(global-set-key (kbd "C-c h") 'windmove-left)         ; move to left window
+(global-set-key (kbd "C-c l") 'windmove-right)        ; move to right window
+(global-set-key (kbd "C-c k") 'windmove-up)           ; move to upper window
+(global-set-key (kbd "C-c j")  'windmove-down)        ; move to lower window
 
 ;; switch keybindings for regex and non-regex search
 (global-set-key (kbd "C-s") 'isearch-forward-regexp)
