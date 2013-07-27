@@ -66,7 +66,7 @@
       (let ((inhibit-read-only t))
         (erase-buffer))
       (setq proc (start-process-shell-command "streaming" buffer
-    (concat "mplayer $(youtube-dl -g " (shell-quote-argument url) ")" )))
+                   (concat "mplayer $(youtube-dl -g " (shell-quote-argument url) ")" )))
       (setq mode-line-process '(":%s"))
       (require 'shell) (shell-mode)
       (set-process-sentinel proc 'shell-command-sentinel)
@@ -76,10 +76,10 @@
 
 ;; play a streaming url
 (defun stream-region ()
-	(interactive)
-	(if (use-region-p)
-			(play-stream (buffer-substring (region-beginning) (region-end)))
-		(message "No region selected...")))
+  (interactive)
+  (if (use-region-p)
+      (play-stream (buffer-substring (region-beginning) (region-end)))
+    (message "No region selected...")))
 
 ;; play a stream through w3m
 (defun w3m-stream ()
@@ -119,15 +119,16 @@
 
 ;; use auto-complete for completion
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
+(add-to-list 'ac-dictionary-directories
+             "/usr/share/emacs/site-lisp/auto-complete/ac-dict")
 (ac-config-default)
+
+;; workaround for flyspell mode
+(ac-flyspell-workaround)
 
 ;; use completion mode for anything auto-complete cannot handle
 (require 'completion)
 (dynamic-completion-mode)
-
-;; workaround for flyspell mode
-(ac-flyspell-workaround)
 
 ;; use AucTex for LaTeX files
 (load "auctex.el" nil t t)
@@ -170,12 +171,13 @@
 
 ;; use mu4e for emails
 (require 'mu4e)
-(setq mu4e-maildir "~/mail")             ;; top-level mail directory
-(setq mu4e-get-mail-command "mbsync -a"  ;; use mbsync to sync mail ...
-			mu4e-update-interval 600)          ;; ... every 10 minutes
+(setq mu4e-maildir "~/mail")               ;; top-level mail directory
+(setq mu4e-get-mail-command "mbsync -a"    ;; use mbsync to sync mail ...
+      mu4e-update-interval 600)            ;; ... every 10 minutes
+(setq mu4e-change-filenames-when-moving t) ;; work with mbsync maildir format
 
 (add-hook 'mu4e-index-updated-hook
-					(lambda () (shell-command "notify-send 'Mail index updated'")))
+          (lambda () (shell-command "notify-send 'Mail index updated'")))
 
 ;; use w3m to render html emails
 (setq mu4e-html2text-command "w3m -T text/html -dump")
@@ -183,10 +185,10 @@
 ;; use gnus smtp for sending mails
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
-			smtpmail-stream-type 'starttls
-			smtpmail-default-smtp-server "smtp.gmail.com"
-			smtpmail-smtp-server "smtp.gmail.com"
-			smtpmail-smtp-service 587)
+      smtpmail-stream-type 'starttls
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
 
 ;; delete messages sent through gmail
 (setq mu4e-sent-messages-behavior 'delete)
@@ -194,7 +196,7 @@
 
 ;; other mu4e useful features
 (setq mu4e-view-show-images t
-			mu4e-view-image-max-width 800)
+      mu4e-view-image-max-width 800)
 
 ;; load gnuplot
 (require 'gnuplot)
@@ -249,10 +251,10 @@
 
 ;; create tags in directory
 (defun create-tags (dir-name)
-	"Create tags file."
-	(interactive "DDirectory: ")
-	(eshell-command
-	 (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name)))
+  "Create tags file."
+  (interactive "DDirectory: ")
+  (eshell-command
+   (format "find %s -type f -name \"*.[ch]\" | etags -" dir-name)))
 
 ;; Turn on auto-fill when we are in text-mode
 (add-hook 'text-mode-hook 'turn-on-auto-fill)
