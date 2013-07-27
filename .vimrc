@@ -20,6 +20,7 @@ endif
 set nocompatible
 
 " Use zenburn color scheme
+syntax enable
 colorscheme zenburn
 
 " allow backspacing over everything in insert mode
