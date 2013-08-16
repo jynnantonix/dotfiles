@@ -116,10 +116,11 @@ it blindly to other people's files can cause enormously messy diffs!"
 ;; set the agenda to look in the org folder
 (require 'org-install)
 (setq org-agenda-files '("~/.emacs.d/org/"))
-(setq org-agenda-start-on-weekday nil          ;; start the agenda on the current day
+(setq org-agenda-start-on-weekday 1            ;; start the agenda on Monday
       org-agenda-start-with-log-mode t         ;; show the daily log
       org-agenda-start-with-follow-mode t      ;; follow the relevant entries
-      org-agenda-start-with-clockreport-mode t);; show the clock for the day
+      org-agenda-start-with-clockreport-mode t ;; show the clock for the day
+      org-clock-into-drawer t)                 ;; hide clocking entries
 
 ;; use native syntax highlighting for src blocks
 (setq org-src-fontify-natively t)

@@ -24,9 +24,6 @@ fi
 # set the keyboard repeat delay and rate
 /usr/bin/xset r rate 170 30 &
 
-# launch screensaver daemon
-#/usr/bin/xscreensaver -no-splash &
-
 # exec gnome-session
 # exec ck-launch-session startkde
 # exec startxfce4

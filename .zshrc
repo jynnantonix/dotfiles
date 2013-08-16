@@ -60,6 +60,9 @@ umask 022
 # add depot_tools to path
 export PATH="$PATH:/usr/local/google/home/ekbotec/Projects/depot_tools"
 
+# add my bin scripts to path
+export PATH="/usr/local/google/home/ekbotec/bin:$PATH"
+
 # connect to an already running ssh agent
 ssh-reagent() {
     for agent in /tmp/ssh-*/agent.*; do
