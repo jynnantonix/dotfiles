@@ -76,6 +76,9 @@ people's files can cause enormously messy diffs!"
 (require 'git)
 (require 'magit)
 
+;; add signoff message with commits
+(setq magit-commit-signoff t)
+
 ;; set a default key for magit-status
 (global-set-key (kbd "C-c s") 'magit-status)
 
