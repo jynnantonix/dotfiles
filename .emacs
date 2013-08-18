@@ -212,6 +212,10 @@
 (setq mu4e-view-show-images t
       mu4e-view-image-max-width 800)
 
+;; use epa to interface with gpg
+(require 'epa-file)
+(epa-file-enable)
+
 ;; load gnuplot
 ;(require 'gnuplot)
 ;(setq auto-mode-alist (append '(("\\.gp$" . gnuplot-mode)) auto-mode-alist))
