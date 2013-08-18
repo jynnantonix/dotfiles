@@ -156,6 +156,12 @@
 ;; use the latest org-mode
 (require 'org-install)
 
+;; set the agenda to look in the org folder
+(setq org-agenda-files '("~/.emacs.d/org/"))
+
+;; set a keybinding for org-agenda
+(global-set-key (kbd "C-c a") 'org-agenda)
+
 ;; use gnus for mailing lists
 (require 'gnus)
 
@@ -204,9 +210,6 @@
 
 ;; use org-babel-gnuplot to create graphs from org
 ;(require 'ob-gnuplot)
-
-;; set the agenda to look in the org folder
-(setq org-agenda-files '("~/.emacs.d/org/"))
 
 ;; emms for multimedia files
 (require 'emms-setup)
