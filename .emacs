@@ -171,6 +171,7 @@
 
 (setq gnus-select-method '(nntp "news.gmane.org"))
 (add-to-list 'gnus-secondary-select-methods '(nntp "news.gnus.org"))
+(add-to-list 'gnus-secondary-select-methods '(nntp "news.gwene.org"))
 
 ;; render html with gnus w3m
 (setq mm-text-html-renderer 'gnus-w3m)
