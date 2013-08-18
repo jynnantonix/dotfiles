@@ -113,6 +113,10 @@
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; use helm for completion awesomeness
+(require 'helm-config)
+(helm-mode 1)
+
 ;; use flymake for on-th-fly syntax checking
 ;(require 'flymake)
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
