@@ -236,6 +236,10 @@ people's files can cause enormously messy diffs!"
 
 ;; set the agenda to look in the org folder
 (setq org-agenda-files '("~/.emacs.d/org/"))
+(setq org-agenda-start-on-weekday nil          ;; start the agenda on the current day
+      org-agenda-start-with-log-mode t         ;; show the daily log
+      org-agenda-start-with-follow-mode t      ;; follow the relevant entries
+      org-agenda-start-with-clockreport-mode t);; show the clock for the day
 
 ;; set a keybinding for org-agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
