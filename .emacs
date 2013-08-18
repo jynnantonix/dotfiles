@@ -386,6 +386,11 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-w") 'backward-kill-word)
 (global-set-key (kbd "<C-backspace>") 'kill-region)
 
+;; more accessible buffer switching
+(global-set-key (kbd "C-x ,") 'previous-buffer)
+(global-set-key (kbd "C-x .") 'next-buffer)
+(global-set-key (kbd "C-x /") 'set-fill-prefix)           ; use to be on C-x .
+
 ;; swap adjacent buffers without C-x b
 (require 'buffer-move)
 (global-set-key (kbd "C-c m h") 'buf-move-left)       ; swap with left buffer
