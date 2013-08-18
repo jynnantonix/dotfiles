@@ -355,9 +355,9 @@ people's files can cause enormously messy diffs!"
 
 ;; use header2 to generate and update file headers
 (require 'header2)
-(add-hook 'c-mode-common-hook 'auto-make-header)
-(add-hook 'emacs-lisp-mode-hook 'auto-make-header)
-(add-hook 'write-file-hooks 'auto-update-file-header)
+;; (add-hook 'c-mode-common-hook 'auto-make-header)
+;; (add-hook 'emacs-lisp-mode-hook 'auto-make-header)
+;; (add-hook 'write-file-hooks 'auto-update-file-header)
 
 ;; create tags in directory
 (defun create-tags (dir-name)
