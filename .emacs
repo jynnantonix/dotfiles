@@ -456,10 +456,6 @@ by using nxml's indentation rules."
 (global-set-key (kbd "C-c m j") 'buf-move-down)       ; swap with bottom buffer
 
 ;; easy commands for window switching
-(global-set-key (kbd "C-c <left>") 'windmove-left)    ; move to left window
-(global-set-key (kbd "C-c <right>") 'windmove-right)  ; move to right window
-(global-set-key (kbd "C-c <up>") 'windmove-up)        ; move to upper window
-(global-set-key (kbd "C-c <down>")  'windmove-down)   ; move to lower window
 (global-set-key (kbd "C-c h") 'windmove-left)         ; move to left window
 (global-set-key (kbd "C-c l") 'windmove-right)        ; move to right window
 (global-set-key (kbd "C-c k") 'windmove-up)           ; move to upper window
