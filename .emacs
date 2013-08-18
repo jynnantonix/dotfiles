@@ -309,12 +309,33 @@ people's files can cause enormously messy diffs!"
 (global-set-key (kbd "<XF86AudioPrev>") 'emms-previous)
 (global-set-key (kbd "<XF86AudioPlay>") 'emms-pause)
 
-;; use google's code style for C/C++
+;; Set up google and kernel styles for C
 (require 'cc-mode)
 (require 'google-c-style)
-(add-hook 'c-mode-common-hook 'google-set-c-style)
-(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-(add-hook 'c-mode-common-hook 'whitespace-mode)
+
+;; linux kernel coding style
+(defun c-lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+         (column (c-langelem-2nd-pos c-syntactic-element))
+         (offset (- (1+ column) anchor))
+         (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+;; Add kernel style
+(c-add-style
+ "linux-tabs-only"
+ '("linux" (c-offsets-alist
+            (arglist-cont-nonempty
+             c-lineup-gcc-asm-reg
+             c-lineup-arglist-tabs-only))))
+
+;; (add-hook 'c-mode-hook
+;;           ; set kernel coding style
+;;           (lambda ()
+;;             (setq indent-tabs-mode t)
+;;             (c-set-style "linux-tabs-only")))
 
 ;; enable cc-mode for CUDA source file
 (setq auto-mode-alist
