@@ -83,7 +83,7 @@ people's files can cause enormously messy diffs!"
 (global-set-key (kbd "C-c s") 'magit-status)
 
 ;; use text mode for commit message
-(add-to-list 'auto-mode-alist '("^COMMIT_EDITMSG$" . text-mode))
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
 
 ;; use erc for IRC
 (require 'my-erc)
