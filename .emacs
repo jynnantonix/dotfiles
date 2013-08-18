@@ -39,6 +39,9 @@
 (require 'git)
 (require 'magit)
 
+;; set a default key for magit-status
+(global-set-key (kbd "C-c s") 'magit-status)
+
 ;; use erc for IRC
 (require 'my-erc)
 
