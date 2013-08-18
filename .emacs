@@ -174,6 +174,26 @@ people's files can cause enormously messy diffs!"
 
 ;; show whitespace with special characters
 (require 'whitespace)
+(add-hook 'c-mode-common-hook 'whitespace-mode)
+(add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
+(add-hook 'text-mode-hook 'whitespace-mode)
+(add-hook 'asm-mode-hook 'whitespace-mode)
+(add-hook 'lisp-mode-hook 'whitespace-mode)
+
+;; show whitespace with special characters
+(setq whitespace-style '(face
+                         tabs
+                         spaces
+                         trailing
+                         lines-tail
+                         space-before-tab
+                         newline
+                         indentation
+                         empty
+                         space-after-tab
+                         space-mark
+                         tab-mark
+                         newline-mark))
 
 ;; use auto-complete for completion
 (require 'auto-complete-config)
