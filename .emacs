@@ -152,6 +152,10 @@ people's files can cause enormously messy diffs!"
 (require 'ido)
 (ido-mode t)
 
+;; always open files and buffers in the current window
+(setq ido-default-file-method 'selected-window
+      ido-default-buffer-method 'selected-window)
+
 ;; use ibuffer for more organized buffer management
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
