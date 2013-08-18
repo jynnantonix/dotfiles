@@ -338,8 +338,7 @@ people's files can cause enormously messy diffs!"
 ;;             (c-set-style "linux-tabs-only")))
 
 ;; enable cc-mode for CUDA source file
-(setq auto-mode-alist
-      (cons '("\\.cu$" . c-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("\\.cu$" . c-mode))
 
 ;; use go mode for Go files
 (require 'go-mode-load)
@@ -384,8 +383,7 @@ people's files can cause enormously messy diffs!"
               auto-mode-alist))
 
 ;; enable shell-script-mode for AUR pkgbuilds
-(setq auto-mode-alist
-      (cons '("PKGBUILD\\'" . shell-script-mode) auto-mode-alist))
+(add-to-list 'auto-mode-alist '("PKGBUILD\\'" . shell-script-mode))
 
 ;; toggle window dedication
 (defun toggle-window-dedicated()
