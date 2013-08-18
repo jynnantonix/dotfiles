@@ -79,6 +79,9 @@ people's files can cause enormously messy diffs!"
 ;; set a default key for magit-status
 (global-set-key (kbd "C-c s") 'magit-status)
 
+;; use text mode for commit message
+(add-to-list 'auto-mode-alist '("^COMMIT_EDITMSG$" . text-mode))
+
 ;; use erc for IRC
 (require 'my-erc)
 
