@@ -156,6 +156,10 @@ people's files can cause enormously messy diffs!"
 (setq ido-default-file-method 'selected-window
       ido-default-buffer-method 'selected-window)
 
+;; use unique filenames
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward)
+
 ;; use ibuffer for more organized buffer management
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
