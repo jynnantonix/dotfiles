@@ -106,6 +106,11 @@ brightness() {
     sudo /bin/sh -c "echo $(((1024 - $1) / 4)) > /sys/class/leds/smc::kbd_backlight/brightness"
 }
 
+# list all the targets of the makefile in the current directory
+list-make-targets() {
+    make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
+}
+
 # pkgfile command not found hook
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
