@@ -34,15 +34,16 @@ alias ping='ping -c 5'
 alias dstat='dstat -cdnpmgs --top-bio --top-cpu'
 alias iftop='sudo iftop -B -i wlp3s0'
 
+alias reboot='systemctl reboot'
+alias poweroff='systemctl poweroff'
+alias halt='systemctl halt'
+
 # sudo commands
 if [ $UID -ne 0 ]; then
     alias sudo='sudo '
     alias scat='sudo cat'
     alias snano='sudo nano'
     alias semacs='sudo emacs'
-    alias reboot='sudo systemctl reboot'
-    alias poweroff='sudo systemctl poweroff'
-    alias halt='sudo systemctl halt'
 fi
 
 # safety features
