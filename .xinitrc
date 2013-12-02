@@ -15,6 +15,9 @@ if [ -f "$HOME"/.Xmodmap ]; then
     /usr/bin/xmodmap "$HOME"/.Xmodmap
 fi
 
+# start gpg-agent before everything else
+eval $(/usr/bin/gpg-agent --daemon --enable-ssh-support --write-env-file /run/user/1000/gpg-agent-info)
+
 # start emacs daemon
 /usr/bin/emacs --daemon &
 
@@ -31,4 +34,6 @@ fi
 # exec ck-launch-session startkde
 # exec startxfce4
 # ...or the Window Manager of your choice
-exec /usr/bin/dwm
+#exec /usr/bin/dwm
+exec /usr/bin/xmonad
+
