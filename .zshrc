@@ -1,17 +1,45 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
-HISTSIZE=500
-SAVEHIST=500
-setopt extendedglob
-setopt null_glob
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
+###############################################################################
+# general settings (see 'man zshoptions' for the whole list)
+#
+# NOTE: aliases can be set in any-case, with/without '_', so
+# `allexport' is equivalent to `A__lleXP_ort'
+#
+setopt   aliases                        # expand aliases
+setopt   auto_cd                        # dirname<enter> ==> cd dirname
+setopt   auto_menu		        # menu after two tabs
+setopt   auto_paramslash                # add / to dir names in completion
+setopt   autopushd pushdignoredups      # auto add dirs to dirstack, no dups
+setopt   complete_aliases               # resolve aliases (before completion)
+setopt   correct correctall             # correct my crappy typing + all args
+setopt   extendedglob		        # extended globs
+setopt   interactivecomments            # allow comments in interactive shells
+setopt   nocompletealiases              # otherwise 'agi<TAB>' won't work...
+
+setopt   noprintexitvalue               # don't print exit val when != 0
+setopt   transientrprompt	        # right prompt goes away after edit
+unsetopt menucomplete		        # don't use menu for completion
+################################################################################
+
+################################################################################
+# history
+#
+export HISTSIZE=5000		        # max size of history
+export SAVEHIST=1000
+export HISTFILE=~/.zsh/zhistory         # place to store the history
+setopt appendhistory                    # append history with session
+setopt incappendhistory                 # ...continually (not just upon exit)
+setopt sharehistory                     # share history between sessions
+setopt histignorealldups                # no dups in the history
+setopt histnostore                      # don't put 'history' in history
+setopt extendedhistory                  # put timestamps in history
+setopt equals                           # allow =cmd instead of which cmd
+setopt histignorespace                  # ignore commands with leading space
+################################################################################
+
 zstyle :compinstall filename '/home/chirantan/.zshrc'
 
 autoload -U compinit
 compinit
-# End of lines added by compinstall
 
 # get a random saying for the day
 command fortune | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
@@ -81,6 +109,12 @@ alias cowupdate='cower -u'
 alias cowsearch='cower -s'
 alias cowinfo='cower -i'
 
+# systemctl --user is too long to type every time
+alias user='systemctl --user'
+
+# mplab path
+export PATH=/opt/microchip/xc16/v1.20/bin:$PATH
+
 # connect to an already running ssh agent
 ssh-reagent() {
     for agent in /tmp/ssh-*/agent.*; do
@@ -111,24 +145,53 @@ list-make-targets() {
     make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}'
 }
 
+send-cmd() {
+    sudo sh -c "echo $1 > /dev/rfcomm$2"
+}
+
 # pkgfile command not found hook
 source /usr/share/doc/pkgfile/command-not-found.zsh
 
-# Configure the prompt
-autoload -U colors
+################################################################################
+# prompt
+#
+# this gets us the symbolic color names and terminal details
+autoload colors zsh/terminfo
 colors
-autoload -U promptinit
-promptinit
 
-prompt_status() {
-    RETVAL=$?
-    if [ $RETVAL -ne 0 ]; then
-        echo -n ":( $RETVAL"
-    else
-        echo -n ":) $RETVAL"
-    fi
-}
+setopt prompt_subst # do parameter expanse etc. on *PROMPT
 
-PROMPT="%{$fg[white]%}┌─[%{$fg[yellow]%}%*%{$fg[white]%}][%{$fg[magenta]%}%m%{$fg[white]%}][%{$fg[cyan]%}%n%{$fg[white]%}][%{$fg[green]%}%~%{$fg[white]%}]
-└───╼ "
-RPROMPT="[%?]"
+# last 2 pwd components,with HOME replaced by ~
+# NOTE: color refs should be escaped in %{ %}, or zsh
+# will miscalculate the length (and prompt gets misaligned)
+local prpath="%{${fg[green]}%}%2~%{${fg[default]}%}"
+# errcode of lst cmd if nonzero
+local prerr="%(0?..[%{${fg[red]}%}%?%{${fg[default]}%}])"
+local pruser="%{${fg[blue]}%}%n%{${fg[default]}%}"         # username
+local prhost="%{${fg[magenta]}%}%m%{${fg[default]}%}"        # hostname
+
+
+# get the vcs (git etc.) info we use in the prompt
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git bzr svn hg
+local vcstool="%{${fg[white]}%}%s%{${fg[default]}%}" # "git", "bzr", ....
+local vcsproj="%{${fg[green]}%}%r%{${fg[default]}%}" # top level dirname
+local vcsbranch="%{${fg[yellow]}%}%b%{${fg[default]}%}"
+local vcsaction="%{${fg[red]}%}%a%{${fg[default]}%}"
+
+zstyle ':vcs_info:git*' formats "(${vcstool})-[${vcsbranch}] ${vcsproj}"
+zstyle ':vcs_info:git*' actionformats "(${vcstool})-[${vcsbranch}|${vcsaction}] ${vcsproj}"
+
+# this function will be called before the prompt is calculated;
+# needed to get the updated git/bzr info
+function precmd() {vcs_info}
+
+# this leftside prompt
+# which will look something like 'djcb@borealis:~ % '
+PROMPT='┌─[${pruser}][${prhost}][${prpath}]
+└─${prerr}──╼ '
+RPROMPT='${vcs_info_msg_0_}'
+
+################################################################################
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
