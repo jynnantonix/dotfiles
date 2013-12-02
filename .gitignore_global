@@ -28,6 +28,7 @@
 *.log
 *.sql
 *.sqlite
+*.aux
 cscope.files
 cscope.out
 TAGS

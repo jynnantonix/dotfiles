@@ -43,4 +43,9 @@
 /.subversion
 /.repoconfig
 /.emacs.d/url
-/.authinfo
+/.authinfo.gpg
+/.gimp*
+/.icedtea
+/.mpd
+/.tahoe
+/.thumbnails
