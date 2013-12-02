@@ -16,6 +16,27 @@
 ;; turn on column numbers
 (column-number-mode t)
 
+;; smooth scrolling
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-up-aggressively 0
+      scroll-down-aggressively 0
+      scroll-preserve-screen-position t)
+
+;; limit width of fringes
+(set-fringe-mode '(1 . 1))
+
+;; delete selection with keypress or paste
+(delete-selection-mode 1)
+
+;; copy-paste interoperability
+(setq x-select-enable-clipboard t
+      interprogram-paste-function 'x-cut-buffer-or-selection-value)
+
+;; highlight search matches
+(setq search-highlight t
+      query-replace-highlight t)
+
 ;; use popup windows for temporary buffers
 (require 'popwin)
 (popwin-mode 1)
@@ -26,6 +47,14 @@
 ;; always show matching parens
 (require 'paren)
 (show-paren-mode t)
+
+;; turn off tabs
+(defun set-no-tabs ()
+  (setq indent-tabs-mode nil))
+
+;; ignore case for completions
+(setq completion-ignore-case t
+      read-file-name-completion-ignore-case t)
 
 ;; maybe delete trailing whitespace before savin
 (defvar skip-whitespace-check nil
@@ -80,7 +109,7 @@ people's files can cause enormously messy diffs!"
 (setq magit-commit-signoff t)
 
 ;; set a default key for magit-status
-(global-set-key (kbd "C-c s") 'magit-status)
+(global-set-key (kbd "C-c g") 'magit-status)
 
 ;; use text mode for commit message
 (add-to-list 'auto-mode-alist '("COMMIT_EDITMSG" . text-mode))
@@ -172,29 +201,6 @@ people's files can cause enormously messy diffs!"
 ;(require 'flymake)
 ;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
-;; show whitespace with special characters
-(require 'whitespace)
-(add-hook 'c-mode-common-hook 'whitespace-mode)
-(add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
-(add-hook 'text-mode-hook 'whitespace-mode)
-(add-hook 'asm-mode-hook 'whitespace-mode)
-(add-hook 'lisp-mode-hook 'whitespace-mode)
-
-;; show whitespace with special characters
-(setq whitespace-style '(face
-                         tabs
-                         spaces
-                         trailing
-                         lines-tail
-                         space-before-tab
-                         newline
-                         indentation
-                         empty
-                         space-after-tab
-                         space-mark
-                         tab-mark
-                         newline-mark))
-
 ;; use auto-complete for completion
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories
@@ -236,10 +242,39 @@ people's files can cause enormously messy diffs!"
 
 ;; set the agenda to look in the org folder
 (setq org-agenda-files '("~/.emacs.d/org/"))
-(setq org-agenda-start-on-weekday nil          ;; start the agenda on the current day
+(setq org-agenda-start-on-weekday 1            ;; start the agenda on Monday
       org-agenda-start-with-log-mode t         ;; show the daily log
-      org-agenda-start-with-follow-mode t      ;; follow the relevant entries
+      org-agenda-start-with-follow-mode nil    ;; don't follow entries
       org-agenda-start-with-clockreport-mode t);; show the clock for the day
+
+;; use 5 priority levels
+(setq org-highest-priority ?A
+      org-lowest-priority ?E
+      org-default-priority ?C)
+
+;; use chromium as default pdf viewer
+(setq org-file-apps '((auto-mode . emacs)
+		      ("\\.mm\\'" . default)
+		      ("\\.x?html?\\'" . default)
+		      ("\\.pdf\\'" . "/usr/bin/chromium %s")))
+
+;; use a logbook for clock entries
+(setq org-clock-into-drawer t)
+
+;; mark when a task is marked as done
+(setq org-log-done t)
+
+;; put logs into LOGBOOK
+(setq org-log-into-drawer t)
+
+;; use year/month/day for calendar entries
+(setq calendar-date-style 'iso)
+
+;; use symbolic links for attachments
+(setq org-attach-method 'lns)
+
+;; use native fontification for source code
+;(setq org-src-fontify-natively nil)
 
 ;; set a keybinding for org-agenda
 (global-set-key (kbd "C-c a") 'org-agenda)
@@ -258,6 +293,9 @@ people's files can cause enormously messy diffs!"
 ;; render html with gnus w3m
 (setq mm-text-html-renderer 'gnus-w3m)
 
+;; create keybinding for gnus
+(global-set-key (kbd "C-c n") 'gnus)
+
 ;; use mu4e for emails
 (require 'mu4e)
 (setq mu4e-maildir "~/mail")               ;; top-level mail directory
@@ -265,31 +303,94 @@ people's files can cause enormously messy diffs!"
       mu4e-update-interval 600)            ;; ... every 10 minutes
 (setq mu4e-change-filenames-when-moving t) ;; work with mbsync maildir format
 
-(add-hook 'mu4e-index-updated-hook
-          (lambda () (shell-command "notify-send 'Mail index updated'")))
+;; store attachments in the downloads folder
+(setq mu4e-attachment-dir "~/downloads")
+
+;; use bookmark for starred messages
+(add-to-list 'mu4e-bookmarks '("flag:flagged" "Starred messages" ?s))
+
+;; add my email addresses
+(setq mu4e-user-mail-address-list
+  (append mu4e-user-mail-address-list '("ekbote@seas.harvard.edu"
+                                        "ekbotec@chromium.org"
+                                        "ekbote@mit.edu"
+                                        "ekbote@g.harvard.edu"
+                                        "ekbote@fas.harvard.edu")))
+
+;; don't reply to myself
+(setq mu4e-compose-dont-reply-to-self t)
+
+;; automatically sign all my messages
+(add-hook 'mu4e-compose-mode-hook 'mml-secure-message-sign-pgpmime)
+
+;; give the signature a name
+(defadvice mml2015-sign (after mml2015-sign-rename (cont) act)
+  (save-excursion
+    (search-backward "Content-Type: application/pgp-signature")
+    (goto-char (point-at-eol))
+    (insert "; name=\"signature.asc\"")))
 
 ;; use w3m to render html emails
-(setq mu4e-html2text-command "w3m -T text/html -dump")
+;(setq mu4e-html2text-command "w3m -T text/html -dump")
+(setq mu4e-html2text-command 'w3m-buffer)
+
+;; other mu4e useful features
+(setq mu4e-view-show-images t
+      mu4e-view-show-addresses t
+      mu4e-view-image-max-width 800)
+
+;; create a keybinding for mu4e
+(global-set-key (kbd "C-c m") 'mu4e)
 
 ;; use gnus smtp for sending mails
 (require 'smtpmail)
 (setq message-send-mail-function 'smtpmail-send-it
       smtpmail-stream-type 'starttls
       smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 
-;; delete messages sent through gmail
-(setq mu4e-sent-messages-behavior 'delete)
+;; delete message buffer when we are done
 (setq message-kill-buffer-on-exit t)
 
-;; other mu4e useful features
-(setq mu4e-view-show-images t
-      mu4e-view-image-max-width 800)
+;; set up multiple smtp accounts
+(defun select-smtp-account ()
+  "Set smtp account information  based on the contact field of the
+original message or prompt if there is no parent message"
+  (interactive)
+  (let ((msg mu4e-compose-parent-message))
+(setq user-mail-address
+  (cond
+   ((and msg (mu4e-message-contact-field-matches msg :to "chirantan.ekbote@gmail.com"))
+    "chirantan.ekbote@gmail.com")
+   ((and msg (mu4e-message-contact-field-matches msg :to "ekbotec@chromium.org"))
+    "ekbotec@chromium.org")
+   ((and msg (mu4e-message-contact-field-matches msg :to "ekbote@mit.edu"))
+    "ekbote@mit.edu")
+   ((and msg (mu4e-message-contact-field-matches msg :to "ekbote@\\(seas\\|fas\\|g\\).harvard.edu"))
+    "ekbote@seas.harvard.edu")
+   (t (completing-read "Enter user-mail-address: " mu4e-user-mail-address-list))))
+(setq smtpmail-smtp-user user-mail-address)
+(cond
+ ((string-match "ekbote@seas.harvard.edu" user-mail-address)
+  (setq smtpmail-smtp-server "email.seas.harvard.edu"
+        mu4e-sent-messages-behavior 'sent))
+ ((string-match "ekbote@mit.edu" user-mail-address)
+  (setq smtpmail-smtp-server "outgoing.mit.edu"
+        mu4e-sent-messages-behavior 'sent))
+ ((string-match ".*@\\(chromium.org\\|gmail.com\\)" user-mail-address)
+  (setq smtpmail-smtp-server "smtp.gmail.com"
+        mu4e-sent-messages-behavior 'delete))
+ (t
+  (setq smtpmail-smtp-server (completing-read "SMTP server: "
+                               '("smtp.gmail.com" "email.seas.harvard.edu"))
+        mu4e-sent-messages-behavior (make-symbol (completing-read "Sent message behavior: "
+                                                   '("delete" "sent" "trash"))))))))
+
+(add-hook 'mu4e-compose-pre-hook 'select-smtp-account)
 
 ;; use epa to interface with gpg
 (require 'epa-file)
-(epa-file-enable)
+;(epa-file-enable)
 
 ;; load gnuplot
 ;(require 'gnuplot)
@@ -302,6 +403,14 @@ people's files can cause enormously messy diffs!"
 (require 'emms-setup)
 (emms-standard)
 (emms-default-players)
+
+;; use mpd as a back-end
+(require 'emms-player-mpd)
+(setq emms-player-mpd-server-name "localhost"
+      emms-player-mpd-server-port "6600")
+(add-to-list 'emms-info-functions 'emms-info-mpd)
+(add-to-list 'emms-player-list 'emms-player-mpd)
+(setq emms-player-mpd-music-directory "~/music")
 
 ;; volume control and playback through emms
 (require 'emms-volume)
@@ -325,17 +434,17 @@ people's files can cause enormously messy diffs!"
 
 ;; Add kernel style
 (c-add-style
- "linux-tabs-only"
- '("linux" (c-offsets-alist
+  "linux-tabs-only"
+  '("linux" (c-offsets-alist
             (arglist-cont-nonempty
              c-lineup-gcc-asm-reg
              c-lineup-arglist-tabs-only))))
 
-;; (add-hook 'c-mode-hook
-;;           ; set kernel coding style
-;;           (lambda ()
-;;             (setq indent-tabs-mode t)
-;;             (c-set-style "linux-tabs-only")))
+(add-hook 'c-mode-hook
+          ; set kernel coding style
+          (lambda ()
+            (setq indent-tabs-mode t)
+            (c-set-style "linux-tabs-only")))
 
 ;; enable cc-mode for CUDA source file
 (add-to-list 'auto-mode-alist '("\\.cu$" . c-mode))
@@ -344,10 +453,50 @@ people's files can cause enormously messy diffs!"
 (require 'go-mode-load)
 
 ;; always run gofmt before saving
-(add-hook 'before-save-hook #'gofmt-before-save)
+(add-hook 'go-mode-hook #'gofmt-before-save)
+(add-hook 'go-mode-hook (lambda () (setq tab-width 4)))
 
 ;; load xcscope for indexing files
 (require 'xcscope)
+
+;; use haskell-mode in haskell files
+(require 'haskell-mode-autoloads)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indentation)
+
+;; show whitespace with special characters
+(require 'whitespace)
+(add-hook 'c-mode-common-hook 'whitespace-mode)
+(add-hook 'emacs-lisp-mode-hook 'whitespace-mode)
+(add-hook 'asm-mode-hook 'whitespace-mode)
+(add-hook 'lisp-mode-hook 'whitespace-mode)
+(add-hook 'python-mode-hook 'whitespace-mode)
+(add-hook 'haskell-mode-hook 'whitespace-mode)
+(add-hook 'scheme-mode-hook 'whitespace-mode)
+(add-hook 'shell-script-mode 'whitespace-mode)
+
+;; show whitespace with special characters
+(setq whitespace-style '(face
+                         tabs
+                         spaces
+                         trailing
+                         lines-tail
+                         space-before-tab
+                         newline
+                         empty
+                         space-after-tab
+                         space-mark
+                         tab-mark
+                         newline-mark))
+
+;; turn off tabs in some modes
+(add-hook 'lisp-mode-hook 'set-no-tabs)
+(add-hook 'scheme-mode-hook 'set-no-tabs)
+(add-hook 'emacs-lisp-mode-hook 'set-no-tabs)
+(add-hook 'python-mode-hook 'set-no-tabs)
+(add-hook 'shell-script-mode 'set-no-tabs)
+
+;; use geiser-mode when working with scheme
+(require 'geiser-install)
 
 ;; use dired-x with dired
 (require 'dired)
@@ -374,13 +523,6 @@ people's files can cause enormously messy diffs!"
 (require 'shell-pop)
 (shell-pop-set-internal-mode "eshell")
 (global-set-key (kbd "<f6>") 'shell-pop)
-
-;; enable cmake-mode for cmake files
-(require 'cmake-mode)
-(setq auto-mode-alist
-      (append '(("CMakeLists\\.txt\\'" . cmake-mode)
-                ("\\.cmake\\'" . cmake-mode))
-              auto-mode-alist))
 
 ;; enable shell-script-mode for AUR pkgbuilds
 (add-to-list 'auto-mode-alist '("PKGBUILD\\'" . shell-script-mode))
@@ -446,16 +588,18 @@ by using nxml's indentation rules."
 ;; more accessible buffer switching
 (global-set-key (kbd "C-x ,") 'previous-buffer)
 (global-set-key (kbd "C-x .") 'next-buffer)
-(global-set-key (kbd "C-x /") 'set-fill-prefix)           ; use to be on C-x .
+(global-set-key (kbd "C-x /") 'set-fill-prefix)       ; used to be on C-x .
 
 ;; swap adjacent buffers without C-x b
 (require 'buffer-move)
-(global-set-key (kbd "C-c m h") 'buf-move-left)       ; swap with left buffer
-(global-set-key (kbd "C-c m l") 'buf-move-right)      ; swap wth right buffer
-(global-set-key (kbd "C-c m k") 'buf-move-up)         ; swap with top buffer
-(global-set-key (kbd "C-c m j") 'buf-move-down)       ; swap with bottom buffer
+(global-set-key (kbd "C-c C-h") 'buf-move-left)       ; swap with left buffer
+(global-set-key (kbd "C-c C-l") 'buf-move-right)      ; swap wth right buffer
+(global-set-key (kbd "C-c C-k") 'buf-move-up)         ; swap with top buffer
+(global-set-key (kbd "C-c C-j") 'buf-move-down)       ; swap with bottom buffer
 
 ;; easy commands for window switching
+(require 'windmove)
+(setq windmove-wrap-around t)
 (global-set-key (kbd "C-c h") 'windmove-left)         ; move to left window
 (global-set-key (kbd "C-c l") 'windmove-right)        ; move to right window
 (global-set-key (kbd "C-c k") 'windmove-up)           ; move to upper window
