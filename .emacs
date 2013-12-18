@@ -440,11 +440,126 @@ original message or prompt if there is no parent message"
              c-lineup-gcc-asm-reg
              c-lineup-arglist-tabs-only))))
 
+;; llvm coding style
+(c-add-style "llvm.org"
+             '((fill-column . 80)
+               (c++-indent-level . 2)
+               (c-basic-offset . 2)
+               (indent-tabs-mode . nil)
+               (c-offsets-alist . ((innamespace 0)))))
+
+
+;;; allow use of clang-format without replacing the whole buffer
+;;; lifted from go-mode
+
+;; Delete the current line without putting it in the kill-ring.
+(defun delete-whole-line (&optional arg)
+  ;; Emacs uses both kill-region and kill-new, Xemacs only uses
+  ;; kill-region. In both cases we turn them into operations that do
+  ;; not modify the kill ring. This solution does depend on the
+  ;; implementation of kill-line, but it's the only viable solution
+  ;; that does not require to write kill-line from scratch.
+  (flet ((kill-region (beg end)
+                      (delete-region beg end))
+         (kill-new (s) ()))
+    (kill-whole-line arg)))
+
+(defun apply-rcs-patch (patch-buffer)
+  "Apply an RCS-formatted diff from PATCH-BUFFER to the current
+buffer."
+  (let ((target-buffer (current-buffer))
+        ;; Relative offset between buffer line numbers and line numbers
+        ;; in patch.
+        ;;
+        ;; Line numbers in the patch are based on the source file, so
+        ;; we have to keep an offset when making changes to the
+        ;; buffer.
+        ;;
+        ;; Appending lines decrements the offset (possibly making it
+        ;; negative), deleting lines increments it. This order
+        ;; simplifies the forward-line invocations.
+        (line-offset 0))
+    (save-excursion
+      (with-current-buffer patch-buffer
+        (goto-char (point-min))
+        (while (not (eobp))
+          (unless (looking-at "^\\([ad]\\)\\([0-9]+\\) \\([0-9]+\\)")
+            (error "invalid rcs patch or internal error in apply-rcs-patch"))
+          (forward-line)
+          (let ((action (match-string 1))
+                (from (string-to-number (match-string 2)))
+                (len  (string-to-number (match-string 3))))
+            (cond
+             ((equal action "a")
+              (let ((start (point)))
+                (forward-line len)
+                (let ((text (buffer-substring start (point))))
+                  (with-current-buffer target-buffer
+                    (decf line-offset len)
+                    (goto-char (point-min))
+                    (forward-line (- from len line-offset))
+                    (insert text)))))
+             ((equal action "d")
+              (with-current-buffer target-buffer
+                (goto-char (point-min))
+                (forward-line (- from line-offset 1))
+                (incf line-offset len)
+                (delete-whole-line len)))
+             (t
+              (error "invalid rcs patch or internal error in apply-rcs-patch")))))))))
+
+;; use LLVM style in clang-format
+(defvar clang-format-style "LLVM")
+
+(defun clang-format ()
+  "Formats the current buffer using clang-format with the style set in
+`clang-format-style'"
+
+  (interactive)
+  (let ((tmpfile (make-temp-file "clangfmt" nil ".c"))
+        (patchbuf (get-buffer-create "*clang-format patch*"))
+        (errbuf (get-buffer-create "*clang-format errors*")))
+
+    (with-current-buffer errbuf
+      (setq buffer-read-only nil)
+      (erase-buffer))
+    (with-current-buffer patchbuf
+      (erase-buffer))
+
+    (write-region nil nil tmpfile)
+
+    (if (zerop (call-process "clang-format" nil errbuf nil "-i" "-style"
+                             clang-format-style tmpfile))
+        (unless (zerop (call-process-region (point-min) (point-max) "diff" nil
+                                            patchbuf nil "-n" "-" tmpfile))
+          (apply-rcs-patch patchbuf)
+          (message "Applied clang-format"))
+      (progn
+        (message "Could not apply clang-format")
+        (display-buffer errbuf)))
+
+    (kill-buffer patchbuf)
+    (delete-file tmpfile)))
+
+;; use llvm coding style unless we are in a linux tree
 (add-hook 'c-mode-hook
-          ; set kernel coding style
           (lambda ()
-            (setq indent-tabs-mode t)
-            (c-set-style "linux-tabs-only")))
+            (let ((filename (buffer-file-name)))
+              ;; Enable kernel mode for the appropriate files
+              (if (and filename
+                       (string-match (expand-file-name "~/src/linux-trees")
+                                     filename))
+                (progn
+                  (setq indent-tabs-mode t)
+                  (c-set-style "linux-tabs-only"))
+                (progn
+                  (c-set-style "llvm.org")
+                  (add-hook 'before-save-hook 'clang-format nil t))))))
+
+(add-hook 'c++-mode-hook
+          (lambda ()
+            (c-set-style "llvm.org")
+            (add-hook 'before-save-hook 'clang-format nil t)))
 
 ;; enable cc-mode for CUDA source file
 (add-to-list 'auto-mode-alist '("\\.cu$" . c-mode))
