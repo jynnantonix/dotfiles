@@ -453,7 +453,7 @@ original message or prompt if there is no parent message"
 (require 'go-mode-load)
 
 ;; always run gofmt before saving
-(add-hook 'go-mode-hook #'gofmt-before-save)
+(add-hook 'go-mode-hook (lambda () (add-hook 'before-save-hook 'gofmt nil t)))
 (add-hook 'go-mode-hook (lambda () (setq tab-width 4)))
 
 ;; load xcscope for indexing files
