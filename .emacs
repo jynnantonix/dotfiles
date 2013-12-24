@@ -433,12 +433,11 @@ original message or prompt if there is no parent message"
        c-basic-offset)))
 
 ;; Add kernel style
-(c-add-style
-  "linux-tabs-only"
-  '("linux" (c-offsets-alist
-            (arglist-cont-nonempty
-             c-lineup-gcc-asm-reg
-             c-lineup-arglist-tabs-only))))
+(c-add-style "linux-tabs-only"
+             '("linux" (c-offsets-alist
+                        (arglist-cont-nonempty
+                         c-lineup-gcc-asm-reg
+                         c-lineup-arglist-tabs-only))))
 
 ;; llvm coding style
 (c-add-style "llvm.org"
