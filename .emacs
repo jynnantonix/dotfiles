@@ -448,6 +448,13 @@ original message or prompt if there is no parent message"
                (indent-tabs-mode . nil)
                (c-offsets-alist . ((innamespace 0)))))
 
+;; arch linux pacman coding style
+(c-add-style "pacman"
+             '((fill-column . 80)
+               (c++-indent-level . 2)
+               (c-basic-offset . 2)
+               (tab-width . 2)
+               (indent-tabs-mode . t)))
 
 ;;; allow use of clang-format without replacing the whole buffer
 ;;; lifted from go-mode
@@ -546,15 +553,18 @@ buffer."
           (lambda ()
             (let ((filename (buffer-file-name)))
               ;; Enable kernel mode for the appropriate files
-              (if (and filename
-                       (string-match (expand-file-name "~/src/linux-trees")
-                                     filename))
-                (progn
-                  (setq indent-tabs-mode t)
-                  (c-set-style "linux-tabs-only"))
-                (progn
-                  (c-set-style "llvm.org")
-                  (add-hook 'before-save-hook 'clang-format nil t))))))
+              (cond ((and filename
+                          (string-match (expand-file-name "~/src/linux-trees")
+                                        filename))
+                     (setq indent-tabs-mode t)
+                     (c-set-style "linux-tabs-only"))
+                    ((and filename
+                          (string-match (expand-file-name "~/projects/pacman")
+                                        filename))
+                     (c-set-style "pacman"))
+                    (t
+                     (c-set-style "llvm.org")
+                     (add-hook 'before-save-hook 'clang-format nil t))))))
 
 (add-hook 'c++-mode-hook
           (lambda ()
