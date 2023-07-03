@@ -1,0 +1,67 @@
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+
+[user]
+	name = Chirantan Ekbote
+	email = chirantan.ekbote@gmail.com
+
+[github]
+	user = jynnantonix
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	features = everforest
+
+[delta "everforest"]
+	dark = true
+	syntax-theme = Everforest Dark Soft
+	bg0 = "#333c43"
+	bg1 = "#3a464c"
+	bg2 = "#434f55"
+	bg3 = "#4d5960"
+	bg4 = "#555f66"
+	bg5 = "#5d6b66"
+	bg-red = "#59464c"
+	bg-green = "#48584e"
+	bg-blue = "#3f5865"
+	bg-yellow = "#55544a"
+	bg-purple = "#6b4c6b"
+	bg-cyan = "#416059"
+
+    minus-style = syntax everforest.bg-red
+    minus-emph-style = syntax "#85565d"
+    plus-style = syntax everforest.bg-green
+    plus-emph-style = syntax "#5a8460"
+	line-numbers-minus-style = red
+	line-numbers-plus-style = green
+	line-numbers-zero-style = everforest.bg5
+    map-styles = \
+       bold purple => syntax everforest.bg-purple, \
+       bold blue => syntax everforest.bg-blue, \
+       bold cyan => syntax everforest.bg-cyan, \
+       bold yellow => syntax everforest.bg-yellow
+    zero-style = syntax
+	blame-palette = "#333c43 #434f55 #555f66"
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
+
+[rerere]
+	enabled = true
+
+[commit]
+	gpgSign = true

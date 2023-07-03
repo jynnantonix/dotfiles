@@ -1,0 +1,8 @@
+sync:
+  defaults:
+    ignore:
+      vcs: true
+      paths:
+        - "target"
+        - "node_modules"
+        

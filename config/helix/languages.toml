@@ -1,0 +1,18 @@
+[[language]]
+name = "go"
+formatter = { command = "goimports" }
+text-width = 100
+
+[[language]]
+name = "git-commit"
+rulers = [50, 72]
+text-width = 72
+
+[[language]]
+name = "rust"
+text-width = 100
+
+[[language]]
+name = "markdown"
+rulers = [100]
+text-width = 100

@@ -1,0 +1,37 @@
+theme = "everforest_dark_soft"
+
+[editor]
+line-number = "relative"
+color-modes = true
+text-width = 100
+# rulers = [72]
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.indent-guides]
+render = true
+
+[editor.lsp]
+display-inlay-hints = true
+
+[editor.statusline]
+right = ["version-control", "diagnostics", "selections", "position", "file-encoding"]
+
+# [editor.whitespace]
+# render = "all"
+
+[keys.normal]
+g = { p = "jump_backward", n = "jump_forward" }
+
+[keys.normal."space"]
+"space" = "command_mode"
+q = { q = ":quit-all", Q = ":quit-all!"}
+
+[keys.select]
+"space" = { "space" = "command_mode" }

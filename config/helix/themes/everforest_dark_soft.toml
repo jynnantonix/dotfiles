@@ -1,0 +1,122 @@
+# Everforest (Dark Soft)
+# Author: jynnantonix
+
+# Original Author:
+# URL: https://github.com/sainnhe/everforest
+# Filename: autoload/everforest.vim
+# Author: sainnhe
+# Email: sainnhe@gmail.com
+# License: MIT License
+
+"attribute"                   = "purple"
+"comment"                     = { fg = "grey1", modifiers = ["italic"] }
+"comment.block.documentation" = { fg = "grey1", modifiers = ["italic", "bold"] }
+"constructor"                 = "green"
+"constant"                    = "purple"
+"constant.character"          = "aqua"
+"function"                    = "green"
+"function.macro"              = "blue"
+"keyword"                     = "red"
+"keyword.operator"            = "orange"
+"keyword.directive"           = { fg = "red", modifiers = ["italic"] }
+"keyword.storage"             = "orange"
+"label"                       = "orange"
+# "namespace"                 = { fg = "yellow", modifiers = ["italic"] }
+"operator"                    = "orange"
+"punctuation"                 = "fg"
+"punctuation.delimiter"       = "grey1"
+"punctuation.special"         = "blue"
+"string"                      = "aqua"
+"string.regexp"               = "green"
+"string.special.symbol"       = "fg"
+"string.special.url"          = { fg = "blue", modifiers = ["underlined"] }
+"tag"                         = "orange"
+"type"                        = "yellow"
+"type.builtin"                = { fg = "yellow", modifiers = ["italic"] }
+"variable"                    = "fg"
+"variable.builtin"            = { fg = "blue", modifiers = ["italic"] }
+"variable.other.member"       = "green"
+
+"markup.heading.marker" = "grey2"
+"markup.heading.1"      = { fg = "red", modifiers = ["bold"] }
+"markup.heading.2"      = { fg = "orange", modifiers = ["bold"] }
+"markup.heading.3"      = { fg = "yellow", modifiers = ["bold"] }
+"markup.heading.4"      = { fg = "green", modifiers = ["bold"] }
+"markup.heading.5"      = { fg = "blue", modifiers = ["bold"] }
+"markup.heading.6"      = { fg = "fg", modifiers = ["bold"] }
+"markup.list"           = "red"
+"markup.bold"           = { modifiers = ["bold"] }
+"markup.italic"         = { modifiers = ["italic"] }
+"markup.link.url"       = { fg = "blue", modifiers = ["underlined"] }
+"markup.link.text"      = "purple"
+"markup.quote"          = "grey2"
+"markup.raw"            = "green"
+
+"diff.plus"        = { fg = "fg", bg = "bg_green" }
+"diff.delta"       = { fg = "fg", bg = "bg_blue" }
+"diff.delta.moved" = { fg = "fg", bg = "bg_blue" }
+"diff.minus"       = { fg = "fg", bg = "bg_red" }
+
+"ui.background"          = { bg = "bg0" }
+"ui.cursor"              = { fg = "bg0", bg = "fg" }
+"ui.cursor.match"        = { fg = "fg", bg = "bg4" }
+"ui.linenr"              = "grey0"
+"ui.linenr.selected"     = { fg = "grey2", bg = "bg1" }
+"ui.statusline"          = { fg = "grey1", bg = "bg1" }
+"ui.statusline.inactive" = { fg = "grey1", bg = "bg0" }
+"ui.statusline.normal"   = { fg = "bg1", bg = "statusline1" }
+"ui.statusline.insert"   = { fg = "bg1", bg = "statusline2" }
+"ui.statusline.select"   = { fg = "bg1", bg = "statusline3" }
+"ui.popup"               = { fg = "fg", bg = "bg2" }
+"ui.popup.info"          = "green"
+"ui.window"              = "bg4"
+"ui.help"                = "fg"
+"ui.text"                = "fg"
+"ui.menu"                = { fg = "fg", bg = "bg2" }
+"ui.menu.selected"       = { fg = "bg0", bg = "statusline1" }
+"ui.menu.scroll"         = { fg = "grey0", bg = "bg2" }
+"ui.selection"           = { fg = "fg", bg = "bg5" }
+"ui.selection.primary"   = { fg = "fg", bg = "bg_visual" }
+"ui.virtual.ruler"       = { fg = "fg", bg = "bg1" }
+"ui.virtual.inlay-hint"  = "grey0"
+
+"error"   = "red"
+"warning" = "yellow"
+"info"    = "blue"
+"hint"    = "green"
+
+"diagnostic"         = { modifiers = ["underlined"] }
+"diagnostic.error"   = { fg = "fg", bg = "bg_red", modifiers = ["underlined"] }
+"diagnostic.warning" = { fg = "fg", bg = "bg_yellow", modifiers = ["underlined"] }
+"diagnostic.info"    = { fg = "fg", bg = "bg_blue", modifiers = ["underlined"] }
+"diagnostic.hint"    = { fg = "fg", bg = "bg_green", modifiers = ["underlined"] }
+
+
+[palette]
+
+bg0       = "#333c43"
+bg1       = "#3a464c"
+bg2       = "#434f55"
+bg3       = "#4d5960"
+bg4       = "#555f66"
+bg5       = "#5d6b66"
+bg_visual = "#5c3f4f"
+bg_red    = "#59464c#"
+bg_green  = "#48584e"
+bg_blue   = "#3f5865"
+bg_yellow = "#55544a"
+
+fg          = "#d3c6aa"
+red         = "#e67e80"
+orange      = "#e69875"
+yellow      = "#dbbc7f"
+green       = "#a7c080"
+aqua        = "#83c092"
+blue        = "#7fbbb3"
+purple      = "#d699b6"
+grey0       = "#7a8478"
+grey1       = "#859289"
+grey2       = "#9da9a0"
+statusline1 = "#a7c080"
+statusline2 = "#d3c6aa"
+statusline3 = "#e67e80"
